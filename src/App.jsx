@@ -1,10 +1,15 @@
 import './App.css'
+import Navbar from "./components/Navbar"
+import Sidebar from "./components/Sidebar"
+import Layout from "./components/Layout"
+
 
 function App() {
 
   return ( 
     <>
-    <h1>Hello Ganesh...</h1>
+
+    <Layout/>
     
     </>
    )

@@ -1,0 +1,47 @@
+/* App container: vertical stack */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* prevent page scroll */
+}
+
+/* Main content: sidebar + main area */
+.main-content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 56px); /* navbar height = 56px */
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px; /* standard YouTube sidebar width */
+  background-color: #fff;
+  border-right: 1px solid #e5e5e5;
+  padding: 16px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* Main content area */
+.content-area {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Optional: scrollbar styling */
+.content-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.content-area::-webkit-scrollbar-track {
+  background-color: transparent;
+}

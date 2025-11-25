@@ -1,0 +1,172 @@
+/* General navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px; /* exact YouTube navbar height */
+  padding: 0 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Left section: Hamburger + Logo */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.hamburger {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo img {
+  height: 24px;
+}
+
+.logo p {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  color: #ff0000;
+  line-height: 1;
+}
+
+/* Center: Search bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 600px;
+  height: 40px;
+}
+
+.search-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  font-size: 16px;
+  
+}
+
+.search-btn {
+  height: 100%;
+  width: 60px;
+  padding: 20px 12px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.voiceSearch {
+  margin-left: 8px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+/* Right section */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+/* + Create button */
+.create-btn {
+  background-color: transparent;
+  border: 1px solid #065fd4;
+  color: #065fd4;
+  padding: 0 12px;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+}
+
+.create-btn:hover {
+  background-color: rgba(37, 98, 252, 0.1);
+}
+
+/* Notification bell */
+.notification img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+/* User icon */
+.user-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.user-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #555;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .search-container {
+    display: none;
+  }
+
+  .navbar-left {
+    gap: 8px;
+  }
+
+  .navbar-right {
+    gap: 8px;
+  }
+}
