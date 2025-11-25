@@ -12,6 +12,7 @@
   flex: 1;
   height: calc(100vh - 56px); /* navbar height = 56px */
   overflow: hidden;
+  
 }
 
 /* Sidebar */
@@ -27,8 +28,8 @@
 /* Main content area */
 .content-area {
   flex: 1;
-  background-color: #f9f9f9;
-  padding: 20px;
+  background-color: white;
+  /* padding: 20px; */
   overflow-y: auto;
 }
 

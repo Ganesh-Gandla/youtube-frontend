@@ -1,6 +1,6 @@
 // src/components/Sidebar.jsx
 import { FaHome, FaFire, FaList } from "react-icons/fa";
-import "../styles//Sidebar.css";
+import "../styles/Sidebar.css";
 
 function Sidebar() {
   return (
