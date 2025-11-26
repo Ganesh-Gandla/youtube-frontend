@@ -5,6 +5,8 @@ import "../styles/Layout.css";
 import Filterbar from "./Filterbar";
 import VideoItem from "./VideoItem";
 import VideoGrid from "./VideoGrid";
+import Home from "../pages/Home.jsx"
+import Channel from "../pages/Channel.jsx";
 
 function Layout() {
   return (
@@ -14,9 +16,8 @@ function Layout() {
       <div className="main-content">
         <Sidebar />
         <main className="content-area">
-          <Filterbar/>
-          <hr />
-          <VideoGrid/>
+          {/* <Home /> */}
+          <Channel/>
           {/* Add page content here */}
         </main>
       </div>
