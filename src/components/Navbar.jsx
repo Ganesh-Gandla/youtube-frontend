@@ -2,11 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { FaUserCircle, FaBars, FaSearch, FaMicrophone } from "react-icons/fa";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { increment, decrement, reset } from "../redux/counterSlice";
 
 function Navbar() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
   const userBtnRef = useRef(null);
+
+  const value = useSelector((state)=>state.counter.value)
+  const dispatch = useDispatch();
 
   const toggleUserMenu = () => setShowUserMenu((s) => !s);
 
@@ -58,7 +64,7 @@ function Navbar() {
         </button>
         <Link to="/"><div className="logo" role="img" aria-label="YouTube Logo">
           <img src="./youtube.png" alt="YouTube Logo" />
-          <p>YouTube</p>
+          <p>YouTube - {value}</p>
         </div></Link>
       </div>
 
@@ -84,7 +90,7 @@ function Navbar() {
           login
         </button></Link>
 
-        <button className="create-btn" aria-label="Create">
+        <button className="create-btn" aria-label="Create" onClick={()=>dispatch(increment())}>
           + Create
         </button>
 
