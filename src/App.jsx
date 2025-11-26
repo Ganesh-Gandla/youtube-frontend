@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar"
 import Layout from "./components/Layout"
 import SignUp from './pages/SignUp'
 import Login from './pages/Login'
-import Channel from './pages/Channel'
+import ChannelPage from './pages/ChannelPage.jsx'
 
 
 function App() {

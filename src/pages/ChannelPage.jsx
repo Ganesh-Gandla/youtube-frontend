@@ -1,8 +1,8 @@
 // src/pages/Channel.jsx
 import VideoGrid from "../components/VideoGrid";
-import "../styles/Channel.css";
+import "../styles/ChannelPage.css";
 
-function Channel() {
+function ChannelPage() {
   return (
     <div className="channel-page">
 
@@ -62,4 +62,4 @@ function Channel() {
   );
 }
 
-export default Channel;
+export default ChannelPage;
