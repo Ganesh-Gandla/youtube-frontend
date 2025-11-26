@@ -1,9 +1,11 @@
-/* General navbar styling */
+/* ---------------------------------------------------
+   GENERAL NAVBAR
+--------------------------------------------------- */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 56px; /* exact YouTube navbar height */
+  height: 56px;
   padding: 0 16px;
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
@@ -14,12 +16,13 @@
   box-sizing: border-box;
 }
 
-/* Left section: Hamburger + Logo */
+/* ---------------------------------------------------
+   LEFT SECTION
+--------------------------------------------------- */
 .navbar-left {
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 100%;
 }
 
 .hamburger {
@@ -27,11 +30,11 @@
   background: none;
   border: none;
   cursor: pointer;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
 }
 
 .logo {
@@ -48,11 +51,12 @@
   font-weight: bold;
   font-size: 20px;
   margin: 0;
-  color: #000000ff;
-  line-height: 1;
+  color: #000;
 }
 
-/* Center: Search bar */
+/* ---------------------------------------------------
+   SEARCH BAR
+--------------------------------------------------- */
 .search-container {
   display: flex;
   align-items: center;
@@ -63,19 +67,16 @@
 
 .search-input {
   flex: 1;
-  height: 100%;
-  padding: 0 12px;
+  padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 20px 0 0 20px;
   outline: none;
   font-size: 16px;
-  
 }
 
 .search-btn {
   height: 100%;
   width: 60px;
-  padding: 20px 12px;
   background-color: #f8f8f8;
   border: 1px solid #ccc;
   border-left: none;
@@ -92,82 +93,134 @@
 
 .voiceSearch {
   margin-left: 8px;
-  font-size: 18px;
   background: whitesmoke;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   color: #555;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
 }
 
-/* Right section */
+/* ---------------------------------------------------
+   RIGHT SECTION
+--------------------------------------------------- */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
-  height: 100%;
+  gap: 14px;
 }
 
-/* + Create button */
 .create-btn {
   background-color: whitesmoke;
   border: none;
-  color: black;
   padding: 0 12px;
-  font-weight: 700;
+  height: 36px;
+  font-weight: bold;
   border-radius: 20px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
 }
 
 .create-btn:hover {
-  background-color: rgba(37, 98, 252, 0.1);
+  background-color: rgba(37, 98, 252, 0.15);
 }
 
-/* Notification bell */
 .notification img {
   width: 28px;
-  height: 28px;
   cursor: pointer;
 }
 
-/* User icon */
-.user-icon {
+/* ---------------------------------------------------
+   USER MENU DROPDOWN
+--------------------------------------------------- */
+
+.user-menu-wrapper {
+  position: relative;
+}
+
+/* Button with icon */
+.user-icon-btn {
   width: 36px;
   height: 36px;
+  background: #ccc;
   border-radius: 50%;
-  background-color: #ccc;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.user-icon-btn svg {
+  width: 22px;
+  height: 22px;
+  color: #444;
+}
+
+/* Dropdown Container */
+.user-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 190px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 6px 0;
+  z-index: 2000;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Menu Item */
+.user-menu-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.user-icon svg {
-  width: 24px;
-  height: 24px;
-  color: #555;
+.user-menu-item:hover {
+  background: #f5f5f5;
 }
 
-/* Responsive tweaks */
+/* Divider */
+.user-menu-divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin: 6px 0;
+}
+
+/* Signout style */
+.user-menu-item.signout {
+  color: red;
+  font-weight: bold;
+}
+
+.user-menu-item.signout:hover {
+  background-color: #ffe8e8;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------- */
 @media (max-width: 768px) {
   .search-container {
     display: none;
   }
-
-  .navbar-left {
-    gap: 8px;
-  }
-
   .navbar-right {
-    gap: 8px;
+    gap: 10px;
   }
 }

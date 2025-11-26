@@ -86,6 +86,23 @@
   background: #1765cc;
 }
 
+.create-account {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.create-account a {
+  color: #1a73e8;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.create-account a:hover {
+  text-decoration: underline;
+}
+
+
 /* MOBILE RESPONSIVE */
 @media (max-width: 480px) {
   .login-box {

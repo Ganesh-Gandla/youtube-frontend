@@ -1,12 +1,13 @@
 // src/components/Sidebar.jsx
 import { FaHome, FaFire, FaList } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
 
 function Sidebar() {
   return (
     <aside className="sidebar">
       <ul>
-        <li><FaHome /> <span>Home</span></li>
+        <li><Link to="/"><FaHome /> <span>Home</span></Link></li>
         <li><span>Shorts</span></li>
         <li><FaList /> <span>Subscriptions</span></li>
         <hr />

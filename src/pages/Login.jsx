@@ -24,6 +24,11 @@ function Login() {
           </div>
         </form>
 
+        {/* ---- Create Account Option ---- */}
+        <p className="create-account">
+          <a href="/signup">Create account</a>
+        </p>
+
       </div>
     </div>
   );
