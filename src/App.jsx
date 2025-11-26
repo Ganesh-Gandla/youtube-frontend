@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import Layout from "./components/Layout"
 import SignUp from './pages/SignUp'
+import Login from './pages/Login'
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
     <>
 
     {/* <Layout/> */}
-    <SignUp/>
+    {/* <SignUp/> */}
+    <Login/>
     
     </>
    )

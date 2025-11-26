@@ -1,0 +1,94 @@
+/* PAGE LAYOUT */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f1f3f4;
+  padding: 16px;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+/* WHITE CARD */
+.login-box {
+  width: 100%;
+  max-width: 450px;
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* GOOGLE LOGO */
+.google-logo {
+  width: 85px;
+  margin-bottom: 12px;
+}
+
+/* HEADINGS */
+.login-title {
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0;
+}
+
+.login-sub {
+  color: #5f6368;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* FORM */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* INPUT */
+.login-form input {
+  width: 90%;
+  padding: 12px 14px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s;
+  margin: auto;
+}
+
+.login-form input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+}
+
+/* BUTTON RIGHT ALIGNED */
+.action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* LOGIN BUTTON */
+.btn-login {
+  background: #1a73e8;
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-login:hover {
+  background: #1765cc;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 24px;
+  }
+}

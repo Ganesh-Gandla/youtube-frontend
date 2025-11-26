@@ -1,23 +1,32 @@
-function Login(){
-    return (
-        <>
-        <div>
-            {/* google logo */}
-            <img src="" alt="Google Logo" />
-            {/* large text */}
-            <p>Login to your Google Account</p>
-            {/* small text */}
-            <p>Enter your details</p>
-        </div>
-        <form action="">
-            {/* add fieldset and legend input */}
-            <input type="text" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            {/* Button on right corner */}
-            <button>Log In</button>
+// src/components/Login.jsx
+import "../styles/Login.css";
+
+function Login() {
+  return (
+    <div className="login-page">
+      <div className="login-box">
+
+        <img
+          className="google-logo"
+          src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
+          alt="Google"
+        />
+
+        <h1 className="login-title">Sign in</h1>
+        <p className="login-sub">Use your Google Account</p>
+
+        <form className="login-form">
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+
+          <div className="action">
+            <button className="btn-login">Login</button>
+          </div>
         </form>
-        </>
-    )
+
+      </div>
+    </div>
+  );
 }
 
-export default Login
+export default Login;
