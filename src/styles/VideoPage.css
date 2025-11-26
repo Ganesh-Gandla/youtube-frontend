@@ -1,147 +1,186 @@
 .video-page {
-  display: flex;
-  gap: 20px;
-  padding: 16px;
-  background: #f9f9f9;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* LEFT SIDE */
+/* ---------------- LEFT SECTION ---------------- */
 .left-section {
-  flex: 3;
+    flex: 2.4;
 }
 
+/* VIDEO PLAYER */
 .video-player video {
-  width: 100%;
-  border-radius: 10px;
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
 }
 
+/* VIDEO TITLE */
 .video-title {
-  margin: 10px 0;
-  font-size: 20px;
-  font-weight: 500;
+    font-size: 22px;
+    margin-top: 12px;
+    margin-bottom: 8px;
 }
 
+/* INFO + ACTIONS */
 .video-info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.views {
+    color: #666;
+    font-size: 14px;
 }
 
 .actions button {
-  margin-left: 8px;
-  padding: 8px 14px;
-  border: none;
-  background: #eee;
-  border-radius: 6px;
-  cursor: pointer;
+    background: #f2f2f2;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 14px;
 }
 
 .actions button:hover {
-  background: #ddd;
+    background: #e0e0e0;
 }
 
+/* ---------------- CHANNEL BOX ---------------- */
 .channel-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 12px;
 }
 
 .channel-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #ccc;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ccc;
+}
+
+.channel-text {
+    flex: 1;
+}
+
+.channel-name {
+    margin: 0;
+    font-size: 16px;
+}
+
+.subs {
+    color: #666;
+    font-size: 14px;
+    margin-top: 2px;
 }
 
 .subscribe-btn {
-  margin-left: auto;
-  padding: 8px 16px;
-  background: #cc0000;
-  color: white;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
+    background: #000;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .subscribe-btn:hover {
-  background: #a80000;
+    background: #333;
 }
 
+/* ---------------- DESCRIPTION ---------------- */
 .description-box {
-  background: #f1f1f1;
-  padding: 12px;
-  border-radius: 8px;
+    margin: 10px 0 20px 0;
+    padding: 12px;
+    background: #f7f7f7;
+    border-radius: 10px;
 }
 
-/* COMMENTS */
-.comments-section {
-  margin-top: 20px;
+.description-box p {
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-.add-comment {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.user-pic {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #ccc;
-}
-
-.add-comment input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-
-.comment {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.user-name span {
-  color: gray;
-  font-size: 12px;
-}
-
-.comment-text {
-  margin-top: 4px;
-}
-
-/* RIGHT SECTION */
+/* ---------------- RIGHT SECTION (SUGGESTED VIDEOS) ---------------- */
 .right-section {
-  flex: 1.1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    flex: 1.1;
 }
 
+/* SINGLE SUGGESTED VIDEO */
 .suggested-video {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .thumb {
-  width: 150px;
-  height: 85px;
-  background: #ddd;
-  border-radius: 6px;
+    width: 150px;
+    height: 90px;
+    background: #ccc;
+    border-radius: 8px;
 }
 
 .s-title {
-  font-size: 14px;
-  font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
 }
 
-.s-channel,
+.s-channel {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0 0 0;
+}
+
 .s-views {
-  font-size: 12px;
-  color: gray;
+    font-size: 12px;
+    color: #888;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1100px) {
+    .video-page {
+        flex-direction: column;
+    }
+
+    .right-section {
+        width: 100%;
+    }
+
+    .thumb {
+        width: 140px;
+        height: 85px;
+    }
+}
+
+@media (max-width: 600px) {
+    .actions button {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .channel-box {
+        flex-wrap: wrap;
+    }
+
+    .subscribe-btn {
+        margin-top: 10px;
+    }
+
+    .thumb {
+        width: 120px;
+        height: 70px;
+    }
 }

@@ -1,4 +1,6 @@
+import CommentItem from "../components/CommentItem";
 import "../styles/VideoPage.css";
+import CommentSection from "../components/CommentSection";
 
 function VideoPage() {
     return (
@@ -50,23 +52,7 @@ function VideoPage() {
                 </div>
 
                 {/* COMMENTS SECTION */}
-                <div className="comments-section">
-                    <h3>Comments</h3>
-
-                    <div className="add-comment">
-                        <img src="" alt="User" className="user-pic" />
-                        <input type="text" placeholder="Add a comment..." />
-                    </div>
-
-                    {/* Single Comment */}
-                    <div className="comment">
-                        <img src="" alt="User" className="user-pic" />
-                        <div>
-                            <p className="user-name">User123 <span>1 day ago</span></p>
-                            <p className="comment-text">This is a comment!</p>
-                        </div>
-                    </div>
-                </div>
+                <CommentSection/>
 
             </div>
 
