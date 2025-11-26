@@ -2,6 +2,7 @@ import './App.css'
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import Layout from "./components/Layout"
+import SignUp from './pages/SignUp'
 
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
   return ( 
     <>
 
-    <Layout/>
+    {/* <Layout/> */}
+    <SignUp/>
     
     </>
    )
