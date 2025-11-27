@@ -1,5 +1,4 @@
-import Filterbar
- from "../components/Filterbar"
+import Filterbar from "../components/Filterbar"
 import VideoGrid from "../components/VideoGrid";
 function Home(){
     return (

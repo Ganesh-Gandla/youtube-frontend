@@ -108,6 +108,14 @@
   background: #1765cc;
 }
 
+.error-msg {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
 /* RESPONSIVE MOBILE FIXES */
 @media (max-width: 480px) {
 

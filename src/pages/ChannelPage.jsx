@@ -1,4 +1,3 @@
-// src/pages/Channel.jsx
 import VideoGrid from "../components/VideoGrid";
 import "../styles/ChannelPage.css";
 

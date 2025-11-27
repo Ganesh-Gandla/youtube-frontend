@@ -1,18 +1,26 @@
-import './App.css'
-import { Outlet } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import store from './redux/store.js'
+// src/App.jsx
+import { Provider, useDispatch } from "react-redux";
+import store from "./redux/store";
+import { useEffect } from "react";
+import { loadUserFromStorage } from "./redux/authSlice";
+import { Outlet } from "react-router-dom";
 
+function AuthLoader() {
+  const dispatch = useDispatch();
 
-function App() {
+  useEffect(() => {
+    dispatch(loadUserFromStorage());
+  }, []);
 
-  return (
-    <>
-    <Provider store = {store} >
-      <Outlet />
-    </Provider>
-    </>
-  )
+  return <Outlet />;
 }
 
-export default App
+function App() {
+  return (
+    <Provider store={store}>
+      <AuthLoader />
+    </Provider>
+  );
+}
+
+export default App;

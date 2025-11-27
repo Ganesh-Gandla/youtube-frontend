@@ -1,18 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle, FaBars, FaSearch, FaMicrophone } from "react-icons/fa";
 import "../styles/Navbar.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { increment, decrement, reset } from "../redux/counterSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 
 function Navbar() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
   const userBtnRef = useRef(null);
 
-  const value = useSelector((state)=>state.counter.value)
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
 
   const toggleUserMenu = () => setShowUserMenu((s) => !s);
 
@@ -36,122 +37,106 @@ function Navbar() {
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEsc);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEsc);
     };
   }, [showUserMenu]);
 
-
-  const handleYourChannel = () => {
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
     setShowUserMenu(false);
-    console.log("Your channel clicked");
-    // TODO: navigate('/my-channel') or open channel editor
-  };
-
-  const handleSignOut = () => {
-    setShowUserMenu(false);
-    console.log("Sign out clicked");
-    // TODO: perform sign out (call API, clear tokens, redirect)
+    navigate("/login");
   };
 
   return (
     <nav className="navbar">
-      {/* Left section: Hamburger + Logo */}
+      {/* Left: Logo */}
       <div className="navbar-left">
         <button className="hamburger" aria-label="Open menu">
           <FaBars />
         </button>
-        <Link to="/"><div className="logo" role="img" aria-label="YouTube Logo">
-          <img src="./youtube.png" alt="YouTube Logo" />
-          <p>YouTube - {value}</p>
-        </div></Link>
+
+        <Link to="/">
+          <div className="logo">
+            <img src="/youtube.png" alt="YouTube Logo" />
+            <p>YouTube</p>
+          </div>
+        </Link>
       </div>
 
-      {/* Center: Search bar */}
+      {/* Center: Search */}
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search"
-          className="search-input"
-          aria-label="Search"
-        />
-        <button className="search-btn" aria-label="Search">
+        <input type="text" placeholder="Search" className="search-input" />
+        <button className="search-btn">
           <FaSearch />
         </button>
-        <button className="voiceSearch" aria-label="Search by voice">
+        <button className="voiceSearch">
           <FaMicrophone />
         </button>
       </div>
 
-      {/* Right section: User buttons */}
+      {/* Right: Auth Buttons */}
       <div className="navbar-right">
-        <Link to="/login"><button className="create-btn" aria-label="Create">
-          login
-        </button></Link>
 
-        <button className="create-btn" aria-label="Create" onClick={()=>dispatch(increment())}>
-          + Create
-        </button>
+        {/* Show Login ONLY if user is not logged in */}
+        {!user && (
+          <>
+            <Link to="/login">
+              <button className="create-btn">Login</button>
+            </Link>
+          </>
+        )}
 
-        <div className="notification" aria-hidden="true">
-          <img src="./bell.png" alt="Notifications" />
-        </div>
-
-        {/* USER ICON + MENU */}
-        <div className="user-menu-wrapper">
-          <button
-            className="user-icon-btn"
-            onClick={toggleUserMenu}
-            aria-haspopup="true"
-            aria-expanded={showUserMenu}
-            aria-label="User menu"
-            ref={userBtnRef}
-          >
-            <FaUserCircle />
-          </button>
-
-          {showUserMenu && (
-            <div
-              className="user-menu"
-              ref={userMenuRef}
-              role="menu"
-              aria-label="User options"
-            >
-              <Link to="/channel/create"><button
-                className="user-menu-item"
-                role="menuitem"
-              >
-                Create Channel
-              </button></Link>
-
-              <Link to="/channel/1"><button
-                className="user-menu-item"
-                onClick={handleYourChannel}
-                role="menuitem"
-              >
-                Your Channel
-              </button></Link>
-
-
-
-              <button
-                className="user-menu-item"
-                role="menuitem"
-              >
-                Settings
-              </button>
-              <div className="user-menu-divider" />
-              <button
-                className="user-menu-item signout"
-                onClick={handleSignOut}
-                role="menuitem"
-              >
-                Sign out
-              </button>
+        {/* Show User Menu ONLY if logged in */}
+        {user && (
+          <>
+            <div className="notification">
+              <img src="/bell.png" alt="Notifications" />
             </div>
-          )}
-        </div>
+
+            <div className="user-menu-wrapper">
+              <button
+                className="user-icon-btn"
+                onClick={toggleUserMenu}
+                ref={userBtnRef}
+              >
+                {user.avatar ? (
+                  <img src={user.avatar} alt="User" className="nav-avatar" />
+                ) : (
+                  <FaUserCircle />
+                )}
+              </button>
+
+              {showUserMenu && (
+                <div className="user-menu" ref={userMenuRef}>
+                  <p className="user-name">
+                    {user.name || user.email}
+                  </p>
+                  <div className="user-menu-divider" />
+
+                  <Link to="/channel/create">
+                    <button className="user-menu-item">Create Channel</button>
+                  </Link>
+
+                  <Link to="/channel/1">
+                    <button className="user-menu-item">Your Channel</button>
+                  </Link>
+
+                  <button className="user-menu-item">Settings</button>
+
+                  <div className="user-menu-divider" />
+
+                  <button className="user-menu-item signout" onClick={handleLogout}>
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );
