@@ -4,7 +4,7 @@ import "../styles/Login.css";
 import axios from "../utils/axios.js";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/authSlice";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
@@ -45,9 +45,11 @@ function Login() {
 
       // Store token locally
       localStorage.setItem("token", userData.token);
+      localStorage.setItem("user", JSON.stringify(userData.user));
 
       // Update Redux state
-      dispatch(loginSuccess(userData.user));
+      dispatch(loginSuccess({ user: userData.user, token: userData.token }));
+
 
       navigate("/");
     } catch (error) {

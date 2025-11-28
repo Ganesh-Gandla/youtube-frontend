@@ -15,6 +15,7 @@ function Navbar() {
 
   const { user } = useSelector((state) => state.auth);
 
+
   const toggleUserMenu = () => setShowUserMenu((s) => !s);
 
   // Close menu on outside click
@@ -80,6 +81,8 @@ function Navbar() {
 
       {/* Right: Auth Buttons */}
       <div className="navbar-right">
+        {user && (<p>{user.username}</p>)}
+        
 
         {/* Show Login ONLY if user is not logged in */}
         {!user && (
