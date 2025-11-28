@@ -9,7 +9,7 @@ function Layout() {
     <div className="app-container">
       <Navbar />
       <div className="main-content">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <main className="content-area">
           <Outlet/>
         </main>

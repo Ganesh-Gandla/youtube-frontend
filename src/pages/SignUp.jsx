@@ -33,6 +33,7 @@ function SignUp() {
 
     // Simple validation
     if (!firstName || !email || !password) {
+      console.log(firstName, email, Password)
       return setErrorMsg("Please fill all required fields.");
     }
 
@@ -41,6 +42,12 @@ function SignUp() {
     }
 
     setLoading(true);
+    console.log({
+      firstName,
+      lastName,
+      email,
+      password,
+    })
 
     try {
       const res = await axios.post("/auth/register", {
