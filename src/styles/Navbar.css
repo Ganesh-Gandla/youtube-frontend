@@ -1,210 +1,118 @@
-/* ---------------------------------------------------
-   GENERAL NAVBAR
---------------------------------------------------- */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 56px;
-  padding: 0 16px;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
   position: sticky;
   top: 0;
+  width: 100%;
+  height: 58px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
   z-index: 1000;
-  font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
 
-/* ---------------------------------------------------
-   LEFT SECTION
---------------------------------------------------- */
+/* LEFT */
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .hamburger {
-  font-size: 20px;
   background: none;
   border: none;
+  font-size: 22px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 6px;
+  text-decoration: none;
+  color: black;
 }
 
 .logo img {
-  height: 28px;
+  width: 32px;
 }
 
 .logo p {
+  font-size: 18px;
   font-weight: bold;
-  font-size: 20px;
-  margin: 0;
-  color: #000;
 }
 
-/* ---------------------------------------------------
-   SEARCH BAR
---------------------------------------------------- */
+/* CENTER SEARCH */
 .search-container {
   display: flex;
   align-items: center;
-  flex: 1;
-  max-width: 600px;
-  height: 40px;
+  width: 40%;
 }
 
 .search-input {
   flex: 1;
-  padding: 10px 12px;
+  height: 36px;
+  padding: 0 12px;
   border: 1px solid #ccc;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-  font-size: 16px;
+  border-right: none;
+  border-radius: 18px 0 0 18px;
 }
 
 .search-btn {
-  height: 100%;
-  width: 60px;
-  background-color: #f8f8f8;
+  height: 36px;
+  padding: 0 18px;
   border: 1px solid #ccc;
   border-left: none;
-  border-radius: 0 20px 20px 0;
+  background: #f8f8f8;
+  border-radius: 0 18px 18px 0;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.search-btn:hover {
-  background-color: #f0f0f0;
-}
-
-.voiceSearch {
-  margin-left: 8px;
-  background: whitesmoke;
-  border: none;
+.voice-btn {
+  background: #f2f2f2;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
+  border: none;
+  margin-left: 10px;
   cursor: pointer;
-  color: #555;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* ---------------------------------------------------
-   RIGHT SECTION
---------------------------------------------------- */
+/* RIGHT */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
 }
 
-.create-btn {
-  background-color: whitesmoke;
-  border: none;
-  padding: 0 12px;
-  height: 36px;
-  font-weight: bold;
-  border-radius: 20px;
+.login-btn {
+  padding: 8px 16px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
   cursor: pointer;
 }
 
-.create-btn:hover {
-  background-color: rgba(37, 98, 252, 0.15);
+.nav-username {
+  font-weight: 500;
 }
 
 .notification img {
-  width: 28px;
+  width: 26px;
   cursor: pointer;
 }
 
-/* ---------------------------------------------------
-   USER MENU DROPDOWN
---------------------------------------------------- */
-
+/* User Menu */
 .user-menu-wrapper {
   position: relative;
 }
 
-/* Button with icon */
 .user-icon-btn {
-  width: 36px;
-  height: 36px;
-  background: #ccc;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.user-icon-btn svg {
-  width: 22px;
-  height: 22px;
-  color: #444;
-}
-
-/* Dropdown Container */
-.user-menu {
-  position: absolute;
-  top: 48px;
-  right: 0;
-  width: 190px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 6px 0;
-  z-index: 2000;
-  animation: fadeIn 0.15s ease-out;
-}
-
-/* Menu Item */
-.user-menu-item {
-  width: 100%;
   background: none;
   border: none;
-  padding: 10px 16px;
-  text-align: left;
-  font-size: 14px;
+  font-size: 28px;
   cursor: pointer;
-}
-
-.user-menu-item:hover {
-  background: #f5f5f5;
-}
-
-/* Divider */
-.user-menu-divider {
-  height: 1px;
-  background: #e5e5e5;
-  margin: 6px 0;
-}
-
-/* Signout style */
-.user-menu-item.signout {
-  color: red;
-  font-weight: bold;
-}
-
-.user-menu-item.signout:hover {
-  background-color: #ffe8e8;
 }
 
 .nav-avatar {
@@ -213,27 +121,40 @@
   border-radius: 50%;
 }
 
-.user-name {
-  padding: 8px 12px;
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 180px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0px 4px 12px rgb(0 0 0 / 15%);
+}
+
+.user-menu-item {
+  padding: 10px 16px;
+  cursor: pointer;
   font-size: 14px;
-  font-weight: 600;
 }
 
-
-/* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+.user-menu-item:hover {
+  background: #f0f0f0;
 }
 
-/* ---------------------------------------------------
-   RESPONSIVE
---------------------------------------------------- */
-@media (max-width: 768px) {
-  .search-container {
-    display: none;
-  }
-  .navbar-right {
-    gap: 10px;
-  }
+.user-name {
+  padding: 10px 16px;
+  font-weight: bold;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+  margin: 6px 0;
+}
+
+.logout-btn {
+  color: red;
 }

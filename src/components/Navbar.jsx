@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
 
-function Navbar() {
+function Navbar({ toggleSidebar }) {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
   const userBtnRef = useRef(null);
@@ -15,12 +15,10 @@ function Navbar() {
 
   const { user } = useSelector((state) => state.auth);
 
+  const toggleUserMenu = () => setShowUserMenu((prev) => !prev);
 
-  const toggleUserMenu = () => setShowUserMenu((s) => !s);
-
-  // Close menu on outside click
   useEffect(() => {
-    function handleClickOutside(e) {
+    const handleClickOutside = (e) => {
       if (
         showUserMenu &&
         userMenuRef.current &&
@@ -30,11 +28,11 @@ function Navbar() {
       ) {
         setShowUserMenu(false);
       }
-    }
+    };
 
-    function handleEsc(e) {
+    const handleEsc = (e) => {
       if (e.key === "Escape") setShowUserMenu(false);
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEsc);
@@ -54,46 +52,40 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Left: Logo */}
+      {/* Left */}
       <div className="navbar-left">
-        <button className="hamburger" aria-label="Open menu">
+        {/* <-- added onClick that calls toggleSidebar prop --> */}
+        <button
+          className="hamburger"
+          aria-label="Toggle sidebar"
+          onClick={toggleSidebar}
+        >
           <FaBars />
         </button>
 
-        <Link to="/">
-          <div className="logo">
-            <img src="/youtube.png" alt="YouTube Logo" />
-            <p>YouTube</p>
-          </div>
+        <Link to="/" className="logo">
+          <img src="/youtube.png" alt="YouTube" />
+          <p>YouTube</p>
         </Link>
       </div>
 
-      {/* Center: Search */}
+      {/* Center */}
       <div className="search-container">
         <input type="text" placeholder="Search" className="search-input" />
-        <button className="search-btn">
-          <FaSearch />
-        </button>
-        <button className="voiceSearch">
-          <FaMicrophone />
-        </button>
+        <button className="search-btn"><FaSearch /></button>
+        <button className="voice-btn"><FaMicrophone /></button>
       </div>
 
-      {/* Right: Auth Buttons */}
+      {/* Right */}
       <div className="navbar-right">
-        {user && (<p>{user.username}</p>)}
-        
+        {user && <p className="nav-username">{user.username}</p>}
 
-        {/* Show Login ONLY if user is not logged in */}
         {!user && (
-          <>
-            <Link to="/login">
-              <button className="create-btn">Login</button>
-            </Link>
-          </>
+          <Link to="/login">
+            <button className="login-btn">Login</button>
+          </Link>
         )}
 
-        {/* Show User Menu ONLY if logged in */}
         {user && (
           <>
             <div className="notification">
@@ -101,11 +93,7 @@ function Navbar() {
             </div>
 
             <div className="user-menu-wrapper">
-              <button
-                className="user-icon-btn"
-                onClick={toggleUserMenu}
-                ref={userBtnRef}
-              >
+              <button className="user-icon-btn" ref={userBtnRef} onClick={toggleUserMenu}>
                 {user.avatar ? (
                   <img src={user.avatar} alt="User" className="nav-avatar" />
                 ) : (
@@ -115,26 +103,24 @@ function Navbar() {
 
               {showUserMenu && (
                 <div className="user-menu" ref={userMenuRef}>
-                  <p className="user-name">
-                    {user.name || user.email}
-                  </p>
-                  <div className="user-menu-divider" />
+                  <p className="user-name">{user.name || user.email}</p>
+                  <div className="divider" />
 
                   <Link to="/channel/create">
-                    <button className="user-menu-item">Create Channel</button>
+                    <p className="user-menu-item">Create Channel</p>
                   </Link>
 
                   <Link to="/channel/1">
-                    <button className="user-menu-item">Your Channel</button>
+                    <p className="user-menu-item">Your Channel</p>
                   </Link>
 
-                  <button className="user-menu-item">Settings</button>
+                  <p className="user-menu-item">Settings</p>
 
-                  <div className="user-menu-divider" />
+                  <div className="divider" />
 
-                  <button className="user-menu-item signout" onClick={handleLogout}>
+                  <p className="user-menu-item logout-btn" onClick={handleLogout}>
                     Sign out
-                  </button>
+                  </p>
                 </div>
               )}
             </div>
