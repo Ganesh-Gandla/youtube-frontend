@@ -15,6 +15,9 @@ import CreateChannelPage from "./pages/CreateChannelPage.jsx"
 import Login from "./pages/Login.jsx"
 import SignUp from "./pages/SignUp.jsx"
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +30,15 @@ const router = createBrowserRouter([
           { path: "/", element: <Home /> },
           { path: "/video/:id", element: <VideoPage /> },
           { path: "/channel/:id", element: <ChannelPage /> },
-          { path: "/channel/create", element: <CreateChannelPage /> },
+
+          {
+            path: "/channel",
+            element: (
+              <ProtectedRoute>
+                <CreateChannelPage />
+              </ProtectedRoute>
+            ),},
+
           { path: "/login", element: <Login /> },
           { path: "/signup", element: <SignUp /> }
         ]
@@ -40,7 +51,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <Provider stroe={store}> */}
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
     {/* </Provider> */}
     {/* <App /> */}
   </StrictMode>,

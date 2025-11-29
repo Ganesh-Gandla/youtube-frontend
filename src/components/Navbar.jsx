@@ -106,7 +106,7 @@ function Navbar({ toggleSidebar }) {
                   <p className="user-name">{user.name || user.email}</p>
                   <div className="divider" />
 
-                  <Link to="/channel/create">
+                  <Link to="/channel">
                     <p className="user-menu-item">Create Channel</p>
                   </Link>
 

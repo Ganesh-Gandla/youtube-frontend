@@ -1,28 +1,38 @@
 import { useState } from "react";
 import "../styles/CreateChannelPage.css";
+import api from "../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 function CreateChannelPage() {
 
     const [channelName, setChannelName] = useState("");
     const [description, setDescription] = useState("");
 
-    const [logoPreview, setLogoPreview] = useState(null);
-    const [bannerPreview, setBannerPreview] = useState(null);
+    const [logoPreview] = useState(null);      // UI only
+    const [bannerPreview] = useState(null);    // UI only
 
-    const handleLogoUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) setLogoPreview(URL.createObjectURL(file));
-    };
+    const navigate = useNavigate();
 
-    const handleBannerUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) setBannerPreview(URL.createObjectURL(file));
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Channel Created!");
-        // Here you will call API to POST channel data
+
+        try {
+            const res = await api.post("/channel", {
+                channelName,
+                description,
+                channelBanner: ""   // SKIPPING IMAGES FOR NOW
+            });
+
+            alert("Channel created!");
+
+
+            const channelId = res.data.channel.channelId;
+            console.log(res.data.channel)
+            navigate(`/channel/${channelId}`);
+
+        } catch (err) {
+            alert(err.response?.data?.message || "Something went wrong");
+        }
     };
 
     return (
@@ -33,24 +43,22 @@ function CreateChannelPage() {
 
                 {/* Banner Upload */}
                 <label className="label">Channel Banner</label>
-                <div className="banner-upload-area">
+                <div className="banner-upload-area disabled-upload">
                     {bannerPreview ? (
                         <img src={bannerPreview} alt="banner" className="banner-preview" />
                     ) : (
-                        <p>Upload Banner Image</p>
+                        <p>Banner upload disabled (coming soon)</p>
                     )}
-                    <input type="file" accept="image/*" onChange={handleBannerUpload} />
                 </div>
 
                 {/* Logo Upload */}
                 <label className="label">Channel Logo</label>
-                <div className="logo-upload-area">
+                <div className="logo-upload-area disabled-upload">
                     {logoPreview ? (
                         <img src={logoPreview} alt="logo" className="logo-preview" />
                     ) : (
-                        <p>Upload Logo</p>
+                        <p>Logo upload disabled (coming soon)</p>
                     )}
-                    <input type="file" accept="image/*" onChange={handleLogoUpload} />
                 </div>
 
                 {/* Channel Name */}
@@ -71,7 +79,7 @@ function CreateChannelPage() {
                     placeholder="Describe your channel..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
+                />
 
                 <button className="create-btn">Create Channel</button>
             </form>

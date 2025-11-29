@@ -111,3 +111,10 @@ h2 {
         height: 110px;
     }
 }
+
+.disabled-upload {
+  opacity: 0.5;
+  pointer-events: none;
+  border: 1px dashed #ccc;
+}
+
