@@ -14,6 +14,7 @@ import ChannelPage from './pages/ChannelPage.jsx'
 import CreateChannelPage from "./pages/CreateChannelPage.jsx"
 import Login from "./pages/Login.jsx"
 import SignUp from "./pages/SignUp.jsx"
+import AddVideo from './pages/AddVideo.jsx'
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
           { path: "/", element: <Home /> },
           { path: "/video/:id", element: <VideoPage /> },
           { path: "/channel/:id", element: <ChannelPage /> },
+          {path: "/addvideo", element: <AddVideo/>},
 
           {
             path: "/channel",

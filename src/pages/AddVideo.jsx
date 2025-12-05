@@ -1,0 +1,114 @@
+import { useState } from "react";
+import "../styles/AddVideo.css";
+import api from "../utils/axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+function AddVideo() {
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  const channelId = user?.channels?.[0] || null;
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Education");
+//   const [visibility, setVisibility] = useState("public");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!channelId) {
+      alert("You must have a channel to upload videos");
+      return navigate("/channel");
+    }
+
+    try {
+      const res = await api.post("/videos", {
+        title,
+        description,
+        category,
+        // visibility,
+        channelId,
+        uploader: user.userId,
+
+        // TEMP VALUES (will update after file upload integration)
+        videoUrl: "https://dummyurl.com/temp.mp4",
+        thumbnailUrl: "https://dummyurl.com/temp.jpg",
+      });
+
+      alert("Video uploaded successfully!");
+      navigate(`/video/${res.data.video.videoId}`);
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Error uploading video");
+    }
+  };
+
+  return (
+    <div className="add-video-page">
+      <h2>Upload New Video</h2>
+
+      <form className="video-form" onSubmit={handleSubmit}>
+        
+        {/* Title */}
+        <label className="label">Title</label>
+        <input
+          type="text"
+          className="input"
+          placeholder="Enter video title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+
+        {/* Description */}
+        <label className="label">Description</label>
+        <textarea
+          className="textarea"
+          placeholder="Video description..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+
+        {/* Category */}
+        <label className="label">Category</label>
+        <select
+          className="input"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        >
+          <option>Education</option>
+          <option>Music</option>
+          <option>Programming</option>
+          <option>Gaming</option>
+          <option>Blog</option>
+        </select>
+
+        {/* Visibility */}
+        {/* <label className="label">Visibility</label>
+        <select
+          className="input"
+          value={visibility}
+          onChange={(e) => setVisibility(e.target.value)}
+        >
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="unlisted">Unlisted</option>
+        </select> */}
+
+        {/* Disabled file inputs */}
+        <label className="label">Thumbnail (Disabled)</label>
+        <input type="file" disabled className="disabled-input" />
+
+        <label className="label">Video File (Disabled)</label>
+        <input type="file" disabled className="disabled-input" />
+
+        <button className="upload-btn">Upload Video</button>
+      </form>
+    </div>
+  );
+}
+
+export default AddVideo;

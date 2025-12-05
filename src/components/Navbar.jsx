@@ -50,6 +50,21 @@ function Navbar({ toggleSidebar }) {
     navigate("/login");
   };
 
+  const handleYourChannel = () => {
+  setShowUserMenu(false);
+
+  if (!user?.channels || user.channels.length === 0) {
+    alert("You don't have a channel yet. Please create one first.");
+    navigate("/channel");  // open create channel page
+    return;
+  }
+
+  // If user has a channel
+  const channelId = user.channels[0]; // assuming 1 channel
+  navigate(`/channel/${channelId}`);
+};
+
+
   return (
     <nav className="navbar">
       {/* Left */}
@@ -78,7 +93,7 @@ function Navbar({ toggleSidebar }) {
 
       {/* Right */}
       <div className="navbar-right">
-        {user && <p className="nav-username">{user.username}</p>}
+        {/* {user && <p className="nav-username">{user.username}</p>} */}
 
         {!user && (
           <Link to="/login">
@@ -88,6 +103,8 @@ function Navbar({ toggleSidebar }) {
 
         {user && (
           <>
+          {/* on click need to redirect to add new video page */}
+          {user.channels.length !== 0 && (<Link to="/addvideo"><button className=""> add +</button></Link>)}
             <div className="notification">
               <img src="/bell.png" alt="Notifications" />
             </div>
@@ -110,9 +127,13 @@ function Navbar({ toggleSidebar }) {
                     <p className="user-menu-item">Create Channel</p>
                   </Link>
 
-                  <Link to="/channel/1">
-                    <p className="user-menu-item">Your Channel</p>
-                  </Link>
+                  <p
+                    className="user-menu-item"
+                    onClick={handleYourChannel}
+                  >
+                    Your Channel
+                  </p>
+
 
                   <p className="user-menu-item">Settings</p>
 
