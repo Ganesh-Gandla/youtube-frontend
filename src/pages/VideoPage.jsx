@@ -1,77 +1,130 @@
-import CommentItem from "../components/CommentItem";
-import "../styles/VideoPage.css";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "../utils/axios";
 import CommentSection from "../components/CommentSection";
+import "../styles/VideoPage.css";
 
 function VideoPage() {
-    return (
-        <div className="video-page">
+  const { id } = useParams();
 
-            {/* LEFT SECTION */}
-            <div className="left-section">
+  const [video, setVideo] = useState(null);
+  const [channel, setChannel] = useState(null);
+  const [suggested, setSuggested] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-                {/* VIDEO PLAYER */}
-                <div className="video-player">
-                    <video controls>
-                        <source src="" type="video/mp4" />
-                    </video>
-                </div>
+  // Load video + channel in ONE API call
+  const loadVideoAndChannel = async () => {
+    try {
+      const res = await api.get(`/videos/${id}`);
 
-                {/* VIDEO TITLE */}
-                <h2 className="video-title">Video Title Goes Here</h2>
+      setVideo(res.data.video);
+      setChannel(res.data.channel);
 
-                {/* INFO + ACTIONS */}
-                <div className="video-info-row">
-                    <p className="views">1,234,567 views • Jan 25, 2025</p>
+    } catch (err) {
+      console.error("Error loading video", err);
+    }
+  };
 
-                    <div className="actions">
-                        <button>👍 Like</button>
-                        <button>👎 Dislike</button>
-                        <button>🔗 Share</button>
-                        <button>⬇ Download</button>
-                    </div>
-                </div>
+  // Load suggested videos
+  const loadSuggested = async () => {
+    try {
+      const res = await api.get(`/videos`);
+      setSuggested(res.data);
+    } catch (err) {
+      console.error("Error loading suggested", err);
+    }
+  };
 
-                {/* CHANNEL BOX */}
-                <div className="channel-box">
-                    <img src="" alt="Channel Logo" className="channel-logo" />
+  useEffect(() => {
+    setLoading(true);
 
-                    <div className="channel-text">
-                        <h4 className="channel-name">Channel Name</h4>
-                        <p className="subs">1.2M subscribers</p>
-                    </div>
+    (async () => {
+      await loadVideoAndChannel();
+      await loadSuggested();
+      setLoading(false);
+    })();
+  }, [id]);
 
-                    <button className="subscribe-btn">Subscribe</button>
-                </div>
+  if (loading || !video) return <p className="loader">Loading video...</p>;
 
-                {/* VIDEO DESCRIPTION */}
-                <div className="description-box">
-                    <p>
-                        This is the video description area.  
-                        Add more lines here...
-                    </p>
-                </div>
+  return (
+    <div className="video-page">
 
-                {/* COMMENTS SECTION */}
-                <CommentSection/>
+      {/* LEFT SECTION */}
+      <div className="left-section">
 
-            </div>
-
-            {/* RIGHT SIDE SUGGESTED VIDEOS */}
-            <div className="right-section">
-                {[1,2,3,4,5,6].map((n) => (
-                    <div className="suggested-video" key={n}>
-                        <img src="" alt="thumbnail" className="thumb" />
-                        <div>
-                            <p className="s-title">Suggested Video Title</p>
-                            <p className="s-channel">Channel Name</p>
-                            <p className="s-views">123K views</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
+        {/* VIDEO PLAYER */}
+        <div className="video-player">
+          <video controls autoPlay>
+            <source src={video.videoUrl} type="video/mp4" />
+          </video>
         </div>
-    );
+
+        {/* TITLE */}
+        <h2 className="video-title">{video.title}</h2>
+
+        {/* INFO ROW */}
+        <div className="video-info-row">
+          <p className="views">
+            {video.views.toLocaleString()} views •{" "}
+            {new Date(video.createdAt).toLocaleDateString()}
+          </p>
+
+          <div className="actions">
+            <button>👍 Like ({video.likes})</button>
+            <button>👎 Dislike ({video.dislikes})</button>
+            <button>🔗 Share</button>
+            <button>⬇ Download</button>
+          </div>
+        </div>
+
+        {/* CHANNEL BOX */}
+        <div className="channel-box">
+          <img
+            src={channel.channelBanner || ""}
+            alt="Channel Logo"
+            className="channel-logo"
+          />
+
+          <div className="channel-text">
+            <h4 className="channel-name">{channel.channelName}</h4>
+            <p className="subs">{channel.subscribers} subscribers</p>
+          </div>
+
+          <button className="subscribe-btn">Subscribe</button>
+        </div>
+
+        {/* DESCRIPTION */}
+        <div className="description-box">
+          <p>{video.description}</p>
+        </div>
+
+        {/* COMMENTS */}
+        <CommentSection videoId={video.videoId} />
+
+      </div>
+
+      {/* RIGHT SECTION (Suggested videos) */}
+      <div className="right-section">
+        {suggested.map((s) => (
+          <div
+            className="suggested-video"
+            key={s.videoId}
+            onClick={() => window.location.href = `/video/${s.videoId}`}
+          >
+            <img src={s.thumbnailUrl} alt="thumbnail" className="thumb" />
+
+            <div>
+              <p className="s-title">{s.title}</p>
+              <p className="s-channel">{s.uploader}</p>
+              <p className="s-views">{s.views.toLocaleString()} views</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
 }
 
 export default VideoPage;
