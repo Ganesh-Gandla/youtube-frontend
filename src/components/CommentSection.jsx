@@ -1,55 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../utils/axios";
 import CommentItem from "./CommentItem";
 import "../styles/CommentSection.css";
 
-function CommentSection() {
+function CommentSection({ videoId }) {
+  const [comments, setComments] = useState([]);
+  const [text, setText] = useState("");
 
-    const [comments, setComments] = useState([
-        {
-            id: 1,
-            username: "User123",
-            time: "1 day ago",
-            text: "This is a comment!",
-            userPic: ""
-        },
-        {
-            id: 2,
-            username: "Alex",
-            time: "5 hours ago",
-            text: "Nice video!",
-            userPic: ""
-        },
-        {
-            id: 3,
-            username: "John",
-            time: "2 hours ago",
-            text: "Awesome content!",
-            userPic: ""
-        }
-    ]);
+  // Load comments from backend
+  const loadComments = async () => {
+    try {
+      const res = await api.get(`/comments/${videoId}`);
+      setComments(res.data);
+    } catch (err) {
+      console.error("Error loading comments", err);
+    }
+  };
 
-    return (
-        <div className="comments-section">
-            <h3>Comments</h3>
+  // Add comment
+  const addComment = async () => {
+    if (!text.trim()) return;
 
-            {/* Add Comment */}
-            <div className="add-comment">
-                <img src="" alt="User" className="user-pic" />
-                <input type="text" placeholder="Add a comment..." />
-            </div>
+    try {
+      const res = await api.post("/comments", {
+        videoId,
+        text,
+      });
 
-            {/* Render Comments */}
-            {comments.map((c) => (
-                <CommentItem
-                    key={c.id}
-                    username={c.username}
-                    time={c.time}
-                    text={c.text}
-                    userPic={c.userPic}
-                />
-            ))}
-        </div>
-    );
+      setComments((prev) => [res.data.comment, ...prev]); // add new comment on top
+      setText("");
+
+    } catch (err) {
+      console.error("Error adding comment", err);
+    }
+  };
+
+  useEffect(() => {
+    loadComments();
+  }, [videoId]);
+
+  return (
+    <div className="comments-section">
+      <h3>Comments</h3>
+
+      {/* Add Comment */}
+      <div className="add-comment">
+        <img src="" alt="User" className="user-pic" />
+        <input
+          type="text"
+          placeholder="Add a comment..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button onClick={addComment}>Post</button>
+      </div>
+
+      {/* Render Comments */}
+      {comments.map((c) => (
+        <CommentItem
+          key={c.commentId}
+          comment={c}
+          onDelete={() => loadComments()}
+          onUpdate={() => loadComments()}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default CommentSection;
