@@ -8,8 +8,8 @@ function CreateChannelPage() {
     const [channelName, setChannelName] = useState("");
     const [description, setDescription] = useState("");
 
-    const [logoPreview] = useState(null);      // UI only
-    const [bannerPreview] = useState(null);    // UI only
+    const [channelLogo, setChannelLogo] = useState("");
+    const [channelBanner, SetChannelBanner] = useState("");
 
     const navigate = useNavigate();
 
@@ -20,7 +20,8 @@ function CreateChannelPage() {
             const res = await api.post("/channel", {
                 channelName,
                 description,
-                channelBanner: ""   // SKIPPING IMAGES FOR NOW
+                channelBanner,
+                channelLogo
             });
 
             alert("Channel created!");
@@ -43,23 +44,23 @@ function CreateChannelPage() {
 
                 {/* Banner Upload */}
                 <label className="label">Channel Banner</label>
-                <div className="banner-upload-area disabled-upload">
-                    {bannerPreview ? (
-                        <img src={bannerPreview} alt="banner" className="banner-preview" />
-                    ) : (
-                        <p>Banner upload disabled (coming soon)</p>
-                    )}
-                </div>
+                <input
+                    type="text"
+                    className="input"
+                    placeholder="Enter channel Banner URL"
+                    value={channelBanner}
+                    onChange={(e) => SetChannelBanner(e.target.value)}
+                />
 
                 {/* Logo Upload */}
                 <label className="label">Channel Logo</label>
-                <div className="logo-upload-area disabled-upload">
-                    {logoPreview ? (
-                        <img src={logoPreview} alt="logo" className="logo-preview" />
-                    ) : (
-                        <p>Logo upload disabled (coming soon)</p>
-                    )}
-                </div>
+                <input
+                    type="text"
+                    className="input"
+                    placeholder="Enter channel Logo URL"
+                    value={channelLogo}
+                    onChange={(e) => setChannelLogo(e.target.value)}
+                />
 
                 {/* Channel Name */}
                 <label className="label">Channel Name</label>

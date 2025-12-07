@@ -62,7 +62,7 @@ function ChannelPage() {
 
       {/* Header */}
       <div className="channel-header">
-        <img className="channel-avatar" src={channel.channelAvatar || "/default-avatar.png"} alt={channel.channelName} />
+        <img className="channel-avatar" src={channel.channelLogo || "/default-avatar.png"} alt={channel.channelName} />
 
         <div className="channel-info">
           <h2 className="channel-title">{channel.channelName}</h2>

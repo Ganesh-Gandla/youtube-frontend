@@ -84,7 +84,7 @@ function VideoPage() {
         {/* CHANNEL BOX */}
         <div className="channel-box">
           <img
-            src={channel.channelBanner || ""}
+            src={channel.channelLogo || ""}
             alt="Channel Logo"
             className="channel-logo"
           />

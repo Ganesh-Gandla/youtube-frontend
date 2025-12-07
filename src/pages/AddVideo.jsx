@@ -15,7 +15,7 @@ function AddVideo() {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Education");
-//   const [visibility, setVisibility] = useState("public");
+  //   const [visibility, setVisibility] = useState("public");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,15 +30,10 @@ function AddVideo() {
         title,
         description,
         category,
-        // visibility,
         channelId,
         uploader: user.userId,
         videoUrl,
         thumbnailUrl,
-
-        // TEMP VALUES (will update after file upload integration)
-        // videoUrl: "https://dummyurl.com/temp.mp4",
-        // thumbnailUrl: "https://dummyurl.com/temp.jpg",
       });
 
       alert("Video uploaded successfully!");
@@ -76,7 +71,7 @@ function AddVideo() {
           onChange={(e) => setThumbnailUrl(e.target.value)}
           required
         />
-        
+
         {/* Title */}
         <label className="label">Title</label>
         <input
@@ -111,26 +106,6 @@ function AddVideo() {
           <option>Gaming</option>
           <option>Blog</option>
         </select>
-
-        {/* Visibility */}
-        {/* <label className="label">Visibility</label>
-        <select
-          className="input"
-          value={visibility}
-          onChange={(e) => setVisibility(e.target.value)}
-        >
-          <option value="public">Public</option>
-          <option value="private">Private</option>
-          <option value="unlisted">Unlisted</option>
-        </select> */}
-
-        {/* Disabled file inputs */}
-        <label className="label">Thumbnail (Disabled)</label>
-        <input type="file" disabled className="disabled-input" />
-
-        <label className="label">Video File (Disabled)</label>
-        <input type="file" disabled className="disabled-input" />
-
         <button className="upload-btn">Upload Video</button>
       </form>
     </div>

@@ -38,7 +38,7 @@ function VideoItem({ video, isOwner = false, onEdit, onDelete }) {
         <div className="video-meta">
           <img
             className="avatar-circle"
-            src={channel.channelAvatar || channel.channelBanner || "/default-avatar.png"}
+            src={channel.channelAvatar || channel.channelLogo || "/default-avatar.png"}
             alt={channel.channelName}
           />
 
