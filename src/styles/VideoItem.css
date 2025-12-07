@@ -1,57 +1,82 @@
+/* ---------------- VIDEO ITEM (YouTube Style) ---------------- */
 .video-item {
   width: 100%;
-  max-width: 320px; /* adjust per grid column */
-  margin: 5px;
-  padding: 20px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  padding: 8px 6px;
+  border-radius: 10px;
 }
 
+.video-item:hover {
+  background: #f2f2f2;
+}
+
+/* ---------------- THUMBNAIL ---------------- */
 .thumbnail {
-  width: 100%;
   position: relative;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
-  overflow: hidden;
-  border-radius: 8px;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
   background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .thumbnail img {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* ---------------- VIDEO INFO ---------------- */
 .video-info {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
-.video-title {
+/* Avatar + text — EXACT YouTube alignment */
+.video-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Circular avatar */
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  flex-shrink: 0;
+}
+
+/* Text Block */
+.text-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+/* Title — exact YouTube sizing */
+.video-item-title {
   font-size: 16px;
-  font-weight: 500;
-  color: #030303;
-  margin: 0 0 4px 0;
-  line-height: 1.2;
-}
-
-.channel-name {
-  font-size: 14px;
-  color: #606060;
+  font-weight: 700;
+  color: #0f0f0f;
+  margin-bottom: 4px;
+  overflow: hidden;
   margin: 0;
 }
 
-.video-stats {
-  font-size: 14px;
+/* Channel Name */
+.channel-name {
+  font-size: 13px;
   color: #606060;
-  margin: 2px 0 0 0;
+  margin-bottom: 2px;
 }
 
-.video-item:hover {
-    background-color: #b0b4b87e;
-    border: none;
-    border-radius: 10px;
+/* Views & time */
+.video-stats {
+  font-size: 13px;
+  color: #606060;
 }

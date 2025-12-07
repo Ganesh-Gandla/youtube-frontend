@@ -104,7 +104,7 @@ function Navbar({ toggleSidebar }) {
         {user && (
           <>
           {/* on click need to redirect to add new video page */}
-          {user.channels.length !== 0 && (<Link to="/addvideo"><button className=""> add +</button></Link>)}
+          {user.channels.length !== 0 && (<Link to="/addvideo"><button className="btn"> add +</button></Link>)}
             <div className="notification">
               <img src="/bell.png" alt="Notifications" />
             </div>

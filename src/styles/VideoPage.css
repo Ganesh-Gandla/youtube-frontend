@@ -37,6 +37,9 @@
     color: #666;
     font-size: 14px;
 }
+.actions{
+    display: flex;
+}
 
 .actions button {
     background: #f2f2f2;

@@ -1,62 +1,95 @@
+// src/pages/ChannelPage.jsx
 import VideoGrid from "../components/VideoGrid";
-import "../styles/ChannelPage.css";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../utils/axios";
+import "../styles/ChannelPage.css"
+import { useSelector } from "react-redux";
 
 function ChannelPage() {
+  const { channelId } = useParams();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth || {});
+
+  const [channel, setChannel] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadChannelVideos = async () => {
+    try {
+      const res = await api.get(`/videos/channel/${channelId}`);
+      setChannel(res.data.channel);
+      setVideos(res.data.videos);
+    } catch (err) {
+      console.error("Error loading channel videos", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    loadChannelVideos();
+  }, [channelId]);
+
+  const isOwner = user && channel && user.userId === channel.owner;
+
+  // owner actions (you can implement edit modal or redirect to edit page)
+  const handleEdit = (video) => {
+    navigate(`/edit-video/${video.videoId}`);
+  };
+
+  const handleDelete = async (video) => {
+    if (!confirm("Delete this video? This action cannot be undone.")) return;
+    try {
+      await api.delete(`/videos/${video.videoId}`);
+      // remove locally
+      setVideos((prev) => prev.filter((v) => v.videoId !== video.videoId));
+    } catch (err) {
+      console.error("Error deleting video", err);
+      alert(err.response?.data?.message || "Failed to delete");
+    }
+  };
+
+  if (loading) return <p className="loader">Loading channel...</p>;
+
   return (
     <div className="channel-page">
-
       {/* Banner */}
       <div className="channel-banner">
-        <img
-          src="https://i.ytimg.com/vi/2Vv-BfVoq4g/maxresdefault.jpg"
-          alt="Channel Banner"
-        />
+        <img src={channel.channelBanner || "/default-banner.jpg"} alt="Channel Banner" />
       </div>
 
-      {/* Channel Header */}
+      {/* Header */}
       <div className="channel-header">
-        <img
-          className="channel-avatar"
-          src="https://yt3.googleusercontent.com/ytc/AL5GRJXm.png"
-          alt="Channel Logo"
-        />
+        <img className="channel-avatar" src={channel.channelAvatar || "/default-avatar.png"} alt={channel.channelName} />
 
         <div className="channel-info">
-          <h2 className="channel-title">Channel Title</h2>
+          <h2 className="channel-title">{channel.channelName}</h2>
 
           <div className="channel-stats">
-            <span>1.24M subscribers</span>
+            <span>{channel.subscribers?.toLocaleString() || 0} subscribers</span>
             <span> • </span>
-            <span>350 videos</span>
+            <span>{videos.length} videos</span>
           </div>
 
           <p className="channel-description">
-            This is the channel description. High-quality tutorials, guides and learning content.
+            {channel.description || "This channel has no description yet."}
           </p>
 
-          <button className="subscribe-btn">Subscribe</button>
+          {/* If visitor, show subscribe; owner could see edit channel */}
+          {isOwner ? (
+            <button className="edit-channel-btn" onClick={() => navigate(`/channel/edit/${channel.channelId}`)}>Edit Channel</button>
+          ) : (
+            <button className="subscribe-btn">Subscribe</button>
+          )}
         </div>
       </div>
 
-      {/* Tabs */}
-      <ul className="channel-tabs">
-        <li className="active">Home</li>
-        <li>Videos</li>
-        <li>Shorts</li>
-        <li>Live</li>
-        <li>Playlists</li>
-        <li>Community</li>
-      </ul>
+      {/* Tabs / sorts omitted for brevity */}
 
-      {/* Sort Options */}
-      <ul className="sort-options">
-        <li className="active">Latest</li>
-        <li>Popular</li>
-        <li>Older</li>
-      </ul>
-
-      {/* Videos */}
-      <VideoGrid />
+      {/* Video Grid - pass isOwner and owner handlers */}
+      <VideoGrid videos={videos} isOwner={isOwner} onEdit={handleEdit} onDelete={handleDelete} />
     </div>
   );
 }

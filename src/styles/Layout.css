@@ -1,3 +1,4 @@
+
 /* ---------------------- GLOBAL APP WRAPPER ---------------------- */
 .app-container {
   width: 100%;
@@ -34,35 +35,33 @@
   width: 70px;
 }
 
-/* ---------------------- CONTENT AREA DYNAMIC WIDTH ---------------------- */
+/* ---------------------- CONTENT AREA ---------------------- */
 .content-area {
   height: 100%;
-  padding: 20px;
   overflow-y: auto;
   background: #f1f1f1;
   width: 100%;
+  padding: 0 20px;
   transition: margin-left 0.3s ease;
 }
 
-/* When sidebar is open */
+/* Content shift based on sidebar */
 .content-area.open {
   margin-left: 240px;
 }
 
-/* When sidebar is closed */
 .content-area.closed {
   margin-left: 70px;
 }
 
 /* ---------------------- RESPONSIVE ---------------------- */
 @media (max-width: 900px) {
-  /* Sidebar becomes overlay */
   .sidebar {
     position: absolute;
     z-index: 50;
     top: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
   }
 
   .content-area.open,

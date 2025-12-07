@@ -57,8 +57,8 @@ function CommentItem({ comment, onDelete, onUpdate }) {
         )}
 
         <div className="c-actions">
-          <button className="c-btn">👍</button>
-          <button className="c-btn">👎</button>
+          <button className="c-btn"><img src="/like-inactive.png" alt="" width={"18px"}/></button>
+          <button className="c-btn"><img src="/dislike-inactive.png" alt="" width={"18px"}/></button>
           <button className="c-reply">Reply</button>
         </div>
       </div>

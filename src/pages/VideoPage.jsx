@@ -71,10 +71,12 @@ function VideoPage() {
           </p>
 
           <div className="actions">
-            <button>👍 Like ({video.likes})</button>
-            <button>👎 Dislike ({video.dislikes})</button>
-            <button>🔗 Share</button>
-            <button>⬇ Download</button>
+            <div className="">
+            <button><img src="/like-inactive.png" alt="" width={"18px"}/> ({video.likes})</button>
+            <button><img src="/dislike-inactive.png" alt="" width={"18px"}/> ({video.dislikes})</button>
+            </div>
+            <button className=""><img src="/share.png" alt="" width={"18px"}/></button>
+            <button className=""><img src="/download.png" alt="" width={"18px"}/> Download</button>
           </div>
         </div>
 
@@ -116,7 +118,7 @@ function VideoPage() {
 
             <div>
               <p className="s-title">{s.title}</p>
-              <p className="s-channel">{s.uploader}</p>
+              <p className="s-channel">{s.channel.channelName}</p>
               <p className="s-views">{s.views.toLocaleString()} views</p>
             </div>
           </div>

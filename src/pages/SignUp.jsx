@@ -31,23 +31,35 @@ function SignUp() {
 
     const { firstName, lastName, email, password, confirmPassword } = formData;
 
-    // Simple validation
-    if (!firstName || !email || !password) {
-      console.log(firstName, email, Password)
-      return setErrorMsg("Please fill all required fields.");
+    // Required fields validation
+    if (!firstName.trim())
+      return setErrorMsg("First name is required.");
+
+    if (!email.trim())
+      return setErrorMsg("Email is required.");
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email))
+      return setErrorMsg("Enter a valid email address.");
+
+    // Password required + strength
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+
+    if (!passwordRegex.test(password)) {
+      return setErrorMsg(
+        "Password must be 8+ characters with uppercase, lowercase, number & symbol."
+      );
     }
 
-    if (password !== confirmPassword) {
+    // Confirm password
+    if (password !== confirmPassword)
       return setErrorMsg("Passwords do not match!");
-    }
 
     setLoading(true);
-    console.log({
-      firstName,
-      lastName,
-      email,
-      password,
-    })
 
     try {
       const res = await axios.post("/auth/register", {
@@ -57,14 +69,12 @@ function SignUp() {
         password,
       });
 
-      console.log("User registered:", res.data);
-
       alert("Account created successfully!");
       navigate("/login");
     } catch (error) {
-      console.log(error);
       setErrorMsg(
-        error.response?.data?.message || "Registration failed. Try again."
+        error.response?.data?.message ||
+        "Registration failed. Try again."
       );
     }
 

@@ -1,11 +1,11 @@
-import { FaHome, FaList, FaFire } from "react-icons/fa";
+import { FaHome, FaList, FaFire, FaUserCircle, FaDownload } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
 
 function Sidebar({ sidebarOpen = true }) {
   return (
     <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
-      <ul className="sidebar-list">
+      {(sidebarOpen) ? (<ul className="sidebar-list">
 
         <li><Link to="/"><FaHome /> <span>Home</span></Link></li>
         <li><FaFire /> <span>Shorts</span></li>
@@ -51,7 +51,11 @@ function Sidebar({ sidebarOpen = true }) {
         <li><span>Send feedback</span></li>
         <li><span>Trending</span></li>
 
-      </ul>
+      </ul>) : (<ul className="sidebar-list"><li><Link to="/"><FaHome /></Link></li>
+        <li><FaFire /></li>
+        <li><FaList /></li>
+        <li><FaUserCircle /></li>
+        <li><FaDownload/></li></ul>)}
     </aside>
   );
 }

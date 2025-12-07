@@ -64,7 +64,12 @@
   box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
 }
 
-/* ROW for two inputs */
+/* Optional red border when error */
+.input-error {
+  border-color: red !important;
+}
+
+/* ROW layout */
 .row {
   display: flex;
   gap: 12px;
@@ -92,7 +97,7 @@
   margin-top: 8px;
 }
 
-/* GOOGLE STYLE BUTTON */
+/* BUTTON */
 .btn-create {
   background: #1a73e8;
   color: white;
@@ -115,15 +120,12 @@
   text-align: center;
 }
 
-
-/* RESPONSIVE MOBILE FIXES */
+/* RESPONSIVE */
 @media (max-width: 480px) {
-
   .signup-box {
     padding: 24px;
   }
 
-  /* Two-column rows become stacked */
   .row {
     flex-direction: column;
   }

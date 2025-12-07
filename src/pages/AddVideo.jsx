@@ -11,6 +11,8 @@ function AddVideo() {
   const channelId = user?.channels?.[0] || null;
 
   const [title, setTitle] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Education");
 //   const [visibility, setVisibility] = useState("public");
@@ -31,10 +33,12 @@ function AddVideo() {
         // visibility,
         channelId,
         uploader: user.userId,
+        videoUrl,
+        thumbnailUrl,
 
         // TEMP VALUES (will update after file upload integration)
-        videoUrl: "https://dummyurl.com/temp.mp4",
-        thumbnailUrl: "https://dummyurl.com/temp.jpg",
+        // videoUrl: "https://dummyurl.com/temp.mp4",
+        // thumbnailUrl: "https://dummyurl.com/temp.jpg",
       });
 
       alert("Video uploaded successfully!");
@@ -50,6 +54,28 @@ function AddVideo() {
       <h2>Upload New Video</h2>
 
       <form className="video-form" onSubmit={handleSubmit}>
+
+        {/* Video */}
+        <label className="label">Video</label>
+        <input
+          type="text"
+          className="input"
+          placeholder="Enter video URL"
+          value={videoUrl}
+          onChange={(e) => setVideoUrl(e.target.value)}
+          required
+        />
+
+        {/* thumbnail */}
+        <label className="label">Thumbnail</label>
+        <input
+          type="text"
+          className="input"
+          placeholder="Enter thumbnail URL"
+          value={thumbnailUrl}
+          onChange={(e) => setThumbnailUrl(e.target.value)}
+          required
+        />
         
         {/* Title */}
         <label className="label">Title</label>

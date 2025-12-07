@@ -18,8 +18,8 @@ function Layout() {
         <Sidebar sidebarOpen={sidebarOpen} />
 
         <main className={`content-area ${sidebarOpen ? "open" : "closed"}`}>
-  <Outlet />
-</main>
+          <Outlet />
+        </main>
       </div>
     </div>
   );

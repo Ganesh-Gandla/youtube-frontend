@@ -1,12 +1,17 @@
+/* GLOBAL FIX */
+.navbar * {
+  box-sizing: border-box;
+}
+
+/* NAVBAR */
 .navbar {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 58px;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
   display: flex;
-  align-items: center;
+  align-items: center;     /* Center all items vertically */
   justify-content: space-between;
   padding: 0 18px;
   z-index: 1000;
@@ -23,7 +28,12 @@
 .hamburger {
   background: none;
   border: none;
-  font-size: 22px;
+  font-size: 20px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
@@ -58,6 +68,7 @@
   border: 1px solid #ccc;
   border-right: none;
   border-radius: 18px 0 0 18px;
+  font-size: 14px;
 }
 
 .search-btn {
@@ -68,16 +79,22 @@
   background: #f8f8f8;
   border-radius: 0 18px 18px 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .voice-btn {
   background: #f2f2f2;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
   margin-left: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* RIGHT */
@@ -88,16 +105,25 @@
 }
 
 .login-btn {
-  padding: 8px 16px;
+  height: 36px;
+  padding: 0 16px;
   border-radius: 18px;
   border: 1px solid #ccc;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-username {
-  font-weight: 500;
+.btn {
+  padding: 5px 16px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: 600;
 }
 
+/* Notification bell */
 .notification img {
   width: 26px;
   cursor: pointer;
@@ -111,8 +137,13 @@
 .user-icon-btn {
   background: none;
   border: none;
-  font-size: 28px;
+  width: 36px;
+  height: 36px;
+  font-size: 26px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-avatar {
