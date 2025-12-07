@@ -64,6 +64,13 @@ function Navbar({ toggleSidebar }) {
   navigate(`/channel/${channelId}`);
 };
 
+const [searchText, setSearchText] = useState("")
+
+const handleSearch = () => {
+  if (!searchText.trim()) return;
+  navigate(`/?q=${searchText}`);
+};
+
 
   return (
     <nav className="navbar">
@@ -86,8 +93,8 @@ function Navbar({ toggleSidebar }) {
 
       {/* Center */}
       <div className="search-container">
-        <input type="text" placeholder="Search" className="search-input" />
-        <button className="search-btn"><FaSearch /></button>
+        <input type="text" placeholder="Search" className="search-input" onChange={e => setSearchText(e.target.value)}/>
+        <button className="search-btn" onClick={handleSearch}><FaSearch /></button>
         <button className="voice-btn"><FaMicrophone /></button>
       </div>
 
@@ -120,7 +127,7 @@ function Navbar({ toggleSidebar }) {
 
               {showUserMenu && (
                 <div className="user-menu" ref={userMenuRef}>
-                  <p className="user-name">{user.name || user.email}</p>
+                  <p className="user-name">{user.username || user.email}</p>
                   <div className="divider" />
 
                   <Link to="/channel">

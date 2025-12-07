@@ -1,28 +1,46 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import api from "../utils/axios";
 import "../styles/CommentItem.css";
 
-function CommentItem({ comment, onDelete, onUpdate }) {
-  const [showMenu, setShowMenu] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [text, setText] = useState(comment.text);
+function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
+  const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState(comment.text);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  // Update comment
-  const handleUpdate = async () => {
+  const wrapperRef = useRef(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handler = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  // Handle Edit Save
+  const handleEdit = async () => {
     try {
-      await api.put(`/comments/${comment.commentId}`, { text });
-      setEditMode(false);
-      onUpdate();
+      await api.put(`/comments/${comment.commentId}`, {
+        text: editText,
+      });
+
+      setEditing(false);
+      onUpdate(); // refresh list
     } catch (err) {
       console.error("Error updating comment", err);
     }
   };
 
-  // Delete comment
+  // Handle Delete
   const handleDelete = async () => {
     try {
       await api.delete(`/comments/${comment.commentId}`);
-      onDelete();
+      setConfirmDelete(false);
+      onDelete(); // refresh list
     } catch (err) {
       console.error("Error deleting comment", err);
     }
@@ -30,52 +48,86 @@ function CommentItem({ comment, onDelete, onUpdate }) {
 
   return (
     <div className="comment-item">
+      <img src={comment.userAvatar} alt="avatar" className="comment-avatar" />
 
-      <img src="" alt="User" className="c-user-pic" />
+      <div className="comment-body">
+        <div className="comment-header">
+          <span className="comment-author">{comment.username}</span>
+          <span className="comment-date">2 weeks ago</span>
 
-      <div className="c-body">
-        <p className="c-username">
-          {comment.username}{" "}
-          <span className="c-time">
-            {new Date(comment.createdAt).toLocaleString()}
-          </span>
-        </p>
+          {/* Menu Wrapper */}
+          <div className="menu-wrapper" ref={wrapperRef}>
+            {currentUserId === comment.userId && (
+              <>
+                <button
+                  className="menu-btn"
+                  onClick={() => setOpen((prev) => !prev)}
+                >
+                  ⋮
+                </button>
 
-        {/* EDIT MODE */}
-        {editMode ? (
-          <>
-            <textarea
-              className="edit-box"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
+                {open && (
+                  <div className="menu-box">
+                    <div
+                      className="menu-item"
+                      onClick={() => {
+                        setEditing(true);
+                        setOpen(false);
+                      }}
+                    >
+                      Edit
+                    </div>
+                    <div
+                      className="menu-item delete"
+                      onClick={() => {
+                        setConfirmDelete(true);
+                        setOpen(false);
+                      }}
+                    >
+                      Delete
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Edit Mode */}
+        {editing ? (
+          <div className="edit-container">
+            <input
+              className="edit-input"
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
             />
-            <button className="save-btn" onClick={handleUpdate}>Save</button>
-            <button className="cancel-btn" onClick={() => setEditMode(false)}>Cancel</button>
-          </>
+
+            <div className="edit-actions">
+              <button className="cancel-btn" onClick={() => setEditing(false)}>
+                Cancel
+              </button>
+              <button className="save-btn" onClick={handleEdit}>
+                Save
+              </button>
+            </div>
+          </div>
         ) : (
-          <p className="c-text">{comment.text}</p>
+          <p className="comment-text">{comment.text}</p>
         )}
 
-        <div className="c-actions">
-          <button className="c-btn"><img src="/like-inactive.png" alt="" width={"18px"}/></button>
-          <button className="c-btn"><img src="/dislike-inactive.png" alt="" width={"18px"}/></button>
-          <button className="c-reply">Reply</button>
-        </div>
-      </div>
-
-      <div className="c-more-wrapper">
-        <button className="c-more" onClick={() => setShowMenu(!showMenu)}>
-          ⋮
-        </button>
-
-        {showMenu && (
-          <div className="c-menu">
-            <p className="c-menu-item" onClick={() => setEditMode(true)}>Edit</p>
-            <p className="c-menu-item" onClick={handleDelete}>Delete</p>
+        {/* Delete Confirmation */}
+        {confirmDelete && (
+          <div className="delete-popup">
+            <p>Delete this comment?</p>
+            <div className="popup-actions">
+              <button onClick={() => setConfirmDelete(false)}>Cancel</button>
+              <button className="delete-btn" onClick={handleDelete}>
+                Delete
+              </button>
+            </div>
           </div>
         )}
       </div>
-
     </div>
   );
 }

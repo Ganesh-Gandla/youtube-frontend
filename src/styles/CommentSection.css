@@ -1,38 +1,62 @@
+/* MAIN COMMENT CONTAINER */
 .comments-section {
-    padding: 20px 0;
-    border-top: 1px solid #e2e2e2;
-    width: 100%;
+  width: 100%;
+  margin-top: 24px;
+  font-family: "Roboto", sans-serif;
+  color: #000;
 }
 
+/* Heading */
 .comments-section h3 {
-    font-size: 18px;
-    margin-bottom: 15px;
+  font-size: 18px;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #000;
 }
 
-/* ADD COMMENT AREA */
+/* ADD COMMENT BOX */
 .add-comment {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.user-pic {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #ddd;
+.add-comment .user-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
+/* Comment input */
 .add-comment input {
-    flex: 1;
-    padding: 10px 12px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
-    font-size: 15px;
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+  color: #000;
+  transition: border-color 0.2s ease-in-out;
 }
 
 .add-comment input:focus {
-    border-color: #000;
+  border-bottom: 1px solid #000;
+}
+
+/* Post Button */
+.add-comment button {
+  padding: 8px 14px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add-comment button:hover {
+  opacity: 0.8;
 }

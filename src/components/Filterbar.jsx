@@ -1,33 +1,49 @@
 import "../styles/Filterbar.css";
+import { useNavigate } from "react-router-dom";
 
-function Filterbar(){
-    const tags = [
-  "All",
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "Node.js",
-  "MongoDB",
-  "Express",
-  "Frontend",
-  "Backend",
-  "Fullstack",
-  "UI/UX",
-  "Bootstrap",
-  "Tailwind",
-  "API",
-  "Programming"
-];
+function Filterbar() {
+  const navigate = useNavigate();
 
-    return(
-        <ul className="tags-container">
-        {tags.map((tag, index)=>{
-            return (<li key={index}>{tag}</li>)
-        })}
-        </ul>
-        
-    )
+  const tags = [
+    "All",
+    "Education",
+    "Blog",
+    "Gaming",
+    "Music",
+    "Programming",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Express",
+    "Frontend",
+    "Backend",
+    "Fullstack",
+    "UI/UX",
+    "Bootstrap",
+    "Tailwind",
+    "API",
+    "Programming"
+  ];
+
+  const handleFilter = (tag) => {
+    if (tag === "All") {
+      navigate("/"); // reset filter
+    } else {
+      navigate(`/?cat=${tag}`);
+    }
+  };
+
+  return (
+    <ul className="tags-container">
+      {tags.map((tag, index) => (
+        <li key={index} onClick={() => handleFilter(tag)} className="tag-btn">
+          {tag}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export default Filterbar;

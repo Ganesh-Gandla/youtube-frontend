@@ -6,12 +6,20 @@ import "../styles/CommentSection.css";
 function CommentSection({ videoId }) {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
+  const [user, setUser] = useState(null);
 
-  // Load comments from backend
+  // Load logged-in user info
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) setUser(JSON.parse(userData));
+  }, []);
+
+  // Load comments
   const loadComments = async () => {
     try {
       const res = await api.get(`/comments/${videoId}`);
       setComments(res.data);
+      console.log(res.data);
     } catch (err) {
       console.error("Error loading comments", err);
     }
@@ -27,9 +35,8 @@ function CommentSection({ videoId }) {
         text,
       });
 
-      setComments((prev) => [res.data.comment, ...prev]); // add new comment on top
+      setComments((prev) => [res.data.comment, ...prev]);
       setText("");
-
     } catch (err) {
       console.error("Error adding comment", err);
     }
@@ -45,13 +52,19 @@ function CommentSection({ videoId }) {
 
       {/* Add Comment */}
       <div className="add-comment">
-        <img src="" alt="User" className="user-pic" />
+        <img
+          src={user?.avatar || "/default-avatar.png"}
+          alt="User"
+          className="user-pic"
+        />
+
         <input
           type="text"
           placeholder="Add a comment..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
+
         <button onClick={addComment}>Post</button>
       </div>
 
@@ -60,8 +73,9 @@ function CommentSection({ videoId }) {
         <CommentItem
           key={c.commentId}
           comment={c}
-          onDelete={() => loadComments()}
-          onUpdate={() => loadComments()}
+          currentUserId={user?.userId}
+          onDelete={loadComments}
+          onUpdate={loadComments}
         />
       ))}
     </div>

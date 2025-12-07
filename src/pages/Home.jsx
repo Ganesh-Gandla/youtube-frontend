@@ -1,18 +1,37 @@
-import Filterbar from "../components/Filterbar"
-// src/pages/Home.jsx
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../utils/axios";
 import VideoGrid from "../components/VideoGrid";
-import Loader from "../components/Loader"
-// import "../styles/Home.css";
+import Filterbar from "../components/Filterbar";
+import Loader from "../components/Loader";
 
 function Home() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
+  const category = searchParams.get("cat");
+
   const loadVideos = async () => {
     try {
-      const res = await api.get("/videos");
+      setLoading(true);
+
+      let res;
+
+      if (query) {
+        // search by title
+        res = await api.get(`/videos/search/title?title=${query}`);
+      } 
+      else if (category) {
+        // filter by category
+        res = await api.get(`/videos?category=${category}`);
+      } 
+      else {
+        // load all
+        res = await api.get("/videos");
+      }
+
       setVideos(res.data);
     } catch (err) {
       console.error("Error loading videos", err);
@@ -23,14 +42,15 @@ function Home() {
 
   useEffect(() => {
     loadVideos();
-  }, []);
+  }, [query, category]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
 
   return (
     <>
       <Filterbar />
-      <VideoGrid videos={videos} /></>
+      <VideoGrid videos={videos} />
+    </>
   );
 }
 
