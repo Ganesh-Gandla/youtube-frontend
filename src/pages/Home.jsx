@@ -3,6 +3,7 @@ import Filterbar from "../components/Filterbar"
 import { useEffect, useState } from "react";
 import api from "../utils/axios";
 import VideoGrid from "../components/VideoGrid";
+import Loader from "../components/Loader"
 // import "../styles/Home.css";
 
 function Home() {
@@ -24,7 +25,7 @@ function Home() {
     loadVideos();
   }, []);
 
-  if (loading) return <p className="loader">Loading...</p>;
+  if (loading) return <Loader/>;
 
   return (
     <>

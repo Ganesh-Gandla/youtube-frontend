@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import api from "../utils/axios";
 import CommentSection from "../components/CommentSection";
 import "../styles/VideoPage.css";
+import Loader from "../components/Loader"
 
 function VideoPage() {
   const { id } = useParams();
@@ -45,7 +46,7 @@ function VideoPage() {
     })();
   }, [id]);
 
-  if (loading || !video) return <p className="loader">Loading video...</p>;
+  if (loading || !video) return <Loader/>;
 
   return (
     <div className="video-page">
