@@ -22,11 +22,7 @@
   height: 120px;
 }
 
-.disabled-input {
-  opacity: 0.5;
-  pointer-events: none;
-  margin-bottom: 10px;
-}
+
 
 .upload-btn {
   margin-top: 20px;

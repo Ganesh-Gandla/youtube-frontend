@@ -1,0 +1,118 @@
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../utils/axios";
+import "../styles/AddVideo.css";
+
+function EditVideo() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [video, setVideo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [title, setTitle] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Education");
+
+  useEffect(() => {
+    const loadVideo = async () => {
+      try {
+        const res = await api.get(`/videos/${id}`);
+        setVideo(res.data.video);
+
+        setTitle(res.data.video.title);
+        setVideoUrl(res.data.video.videoUrl);
+        setThumbnailUrl(res.data.video.thumbnailUrl);
+        setDescription(res.data.video.description);
+        setCategory(res.data.video.category);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadVideo();
+  }, [id]);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await api.put(`/videos/${id}`, {
+        title,
+        videoUrl,
+        thumbnailUrl,
+        description,
+        category,
+      });
+
+      alert("Video updated successfully");
+      navigate(`/video/${id}`);
+    } catch (err) {
+      alert(err.response?.data?.message || "Update failed");
+    }
+  };
+
+  if (loading) return <p className="loader">Loading...</p>;
+
+  return (
+    <div className="add-video-page">
+      <h2>Edit Video</h2>
+
+      <form className="video-form" onSubmit={handleUpdate}>
+        
+        <label className="label">Video URL</label>
+        <input
+          type="text"
+          className="input"
+          value={videoUrl}
+          onChange={(e) => setVideoUrl(e.target.value)}
+          required
+        />
+
+        <label className="label">Thumbnail URL</label>
+        <input
+          type="text"
+          className="input"
+          value={thumbnailUrl}
+          onChange={(e) => setThumbnailUrl(e.target.value)}
+          required
+        />
+
+        <label className="label">Title</label>
+        <input
+          type="text"
+          className="input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+
+        <label className="label">Description</label>
+        <textarea
+          className="textarea"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+
+        <label className="label">Category</label>
+        <select
+          className="input"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option>Education</option>
+          <option>Music</option>
+          <option>Programming</option>
+          <option>Gaming</option>
+          <option>Blog</option>
+        </select>
+
+        <button className="upload-btn">Update Video</button>
+      </form>
+    </div>
+  );
+}
+
+export default EditVideo;

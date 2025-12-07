@@ -79,7 +79,12 @@ function ChannelPage() {
 
           {/* If visitor, show subscribe; owner could see edit channel */}
           {isOwner ? (
-            <button className="edit-channel-btn" onClick={() => navigate(`/channel/edit/${channel.channelId}`)}>Edit Channel</button>
+            <button
+              className="edit-channel-btn"
+              onClick={() => navigate(`/channel/edit/${channel.channelId}`)}
+            >
+              Edit Channel
+            </button>
           ) : (
             <button className="subscribe-btn">Subscribe</button>
           )}

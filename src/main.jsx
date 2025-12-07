@@ -1,24 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-// import { Provider } from 'react-redux'
-// import store from './redux/store.js'
-import { RouterProvider } from 'react-router-dom'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { createBrowserRouter } from 'react-router-dom'
-import Home from "./pages/Home.jsx"
-import Layout from './components/Layout.jsx'
-import VideoPage from './pages/VideoPage.jsx'
-import ChannelPage from './pages/ChannelPage.jsx'
-import CreateChannelPage from "./pages/CreateChannelPage.jsx"
-import Login from "./pages/Login.jsx"
-import SignUp from "./pages/SignUp.jsx"
-import AddVideo from './pages/AddVideo.jsx'
-import ErrorPage from './pages/ErrorPage.jsx'
+// Pages & Components
+import Layout from "./components/Layout.jsx";
+import Home from "./pages/Home.jsx";
+import VideoPage from "./pages/VideoPage.jsx";
+import ChannelPage from "./pages/ChannelPage.jsx";
+import CreateChannelPage from "./pages/CreateChannelPage.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import AddVideo from "./pages/AddVideo.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import EditVideo from "./pages/EditVideo.jsx";
+import EditChannel from "./pages/EditChannel.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-
 
 const router = createBrowserRouter([
   {
@@ -30,10 +29,20 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
           { path: "/", element: <Home /> },
-          { path: "/video/:id", element: <VideoPage /> },
-          { path: "/channel/:channelId", element: <ChannelPage /> },
-          { path: "/addvideo", element: <AddVideo /> },
 
+          // Video Pages
+          { path: "/video/:id", element: <VideoPage /> },
+          {
+            path: "/edit-video/:id",
+            element: (
+              <ProtectedRoute>
+                <EditVideo />
+              </ProtectedRoute>
+            ),
+          },
+
+          // Channel Pages
+          { path: "/channel/:channelId", element: <ChannelPage /> },
           {
             path: "/channel",
             element: (
@@ -42,25 +51,44 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
+          {
+            path: "/channel/edit/:channelId",
+            element: (
+              <ProtectedRoute>
+                <EditChannel />
+              </ProtectedRoute>
+            ),
+          },
 
+          // Add Video
+          {
+            path: "/addvideo",
+            element: (
+              <ProtectedRoute>
+                <AddVideo />
+              </ProtectedRoute>
+            ),
+          },
+
+          // Auth
           { path: "/login", element: <Login /> },
-          { path: "/signup", element: <SignUp /> }
-        ]
+          { path: "/signup", element: <SignUp /> },
+        ],
       },
+
+      // Error page
       {
         path: "*",
-        element: <ErrorPage />
-      }
+        element: <ErrorPage />,
+      },
+    ],
+  },
+]);
 
-    ]
-  }
-])
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <Provider stroe={store}> */}
+    {/* <Provider store={store}> */}
     <RouterProvider router={router} />
     {/* </Provider> */}
-    {/* <App /> */}
-  </StrictMode>,
-)
+  </StrictMode>
+);
