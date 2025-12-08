@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import {FaUserCircle} from 'react-icons/fa'
 import api from "../utils/axios";
 import "../styles/CommentItem.css";
 
@@ -48,7 +49,7 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
 
   return (
     <div className="comment-item">
-      <img src={comment.userAvatar} alt="avatar" className="comment-avatar" />
+      {comment.userAvatar?(<img src={comment.userAvatar} alt="avatar" className="comment-avatar" />):(<FaUserCircle className="comment-avatar"/>)}
 
       <div className="comment-body">
         <div className="comment-header">
@@ -113,6 +114,15 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
           </div>
         ) : (
           <p className="comment-text">{comment.text}</p>
+        )}
+
+        {/* ✅ Dummy Like / Dislike / Reply Buttons */}
+        {!editing && (
+          <div className="comment-actions">
+            <button className="action-btn"><img src="/like-inactive.png" alt="" width={"18px"}/></button>
+            <button className="action-btn"><img src="/dislike-inactive.png" alt="" width={"18px"}/></button>
+            <button className="action-btn reply-btn">Reply</button>
+          </div>
         )}
 
         {/* Delete Confirmation */}

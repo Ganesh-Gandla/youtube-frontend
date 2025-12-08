@@ -58,12 +58,18 @@
 /* ---------------- CHANNEL BOX ---------------- */
 .channel-box {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     padding: 15px 0;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     margin-bottom: 12px;
+}
+
+.channel-sign{
+    display: flex;
+    gap: 4px;
 }
 
 .channel-logo {

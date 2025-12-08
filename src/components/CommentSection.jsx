@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import {FaUserCircle} from 'react-icons/fa'
+import { useSelector } from "react-redux";
 import api from "../utils/axios";
 import CommentItem from "./CommentItem";
 import "../styles/CommentSection.css";
@@ -6,13 +8,10 @@ import "../styles/CommentSection.css";
 function CommentSection({ videoId }) {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
-  const [user, setUser] = useState(null);
 
   // Load logged-in user info
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) setUser(JSON.parse(userData));
-  }, []);
+  const { user } = useSelector((state) => state.auth);
+
 
   // Load comments
   const loadComments = async () => {
@@ -52,11 +51,12 @@ function CommentSection({ videoId }) {
 
       {/* Add Comment */}
       <div className="add-comment">
-        <img
-          src={user?.avatar || "/default-avatar.png"}
+        {user.avatar?(<img
+          src={user.avatar}
           alt="User"
           className="user-pic"
-        />
+        />):(<FaUserCircle className="user-pic"/>)}
+        
 
         <input
           type="text"

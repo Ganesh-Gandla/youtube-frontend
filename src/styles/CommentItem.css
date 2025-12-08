@@ -135,3 +135,25 @@
   color: #111;
   margin-top: 5px;
 }
+
+.comment-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  color: #000;
+}
+
+.reply-btn {
+  margin-left: 10px;
+}

@@ -2,6 +2,10 @@ import { useState } from "react";
 import "../styles/CreateChannelPage.css";
 import api from "../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../redux/authSlice";
+
+
 
 function CreateChannelPage() {
 
@@ -12,6 +16,7 @@ function CreateChannelPage() {
     const [channelBanner, SetChannelBanner] = useState("");
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,17 +29,24 @@ function CreateChannelPage() {
                 channelLogo
             });
 
-            alert("Channel created!");
-
-
             const channelId = res.data.channel.channelId;
-            console.log(res.data.channel)
-            navigate(`/channel/${channelId}`);
 
+            // ▶ Update Redux user
+            dispatch(updateUser(res.data.user));
+
+            // ▶ Persist new user in localStorage
+            const storedAuth = JSON.parse(localStorage.getItem("auth"));
+            localStorage.setItem("auth", JSON.stringify({
+                ...storedAuth,
+                user: res.data.user
+            }));
+
+            navigate(`/channel/${channelId}`);
         } catch (err) {
             alert(err.response?.data?.message || "Something went wrong");
         }
     };
+
 
     return (
         <div className="create-channel-page">

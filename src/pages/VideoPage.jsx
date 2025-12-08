@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import api from "../utils/axios";
 import CommentSection from "../components/CommentSection";
 import "../styles/VideoPage.css";
@@ -12,6 +12,16 @@ function VideoPage() {
   const [channel, setChannel] = useState(null);
   const [suggested, setSuggested] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+
+  useEffect(() => {
+    if (video) {
+      setLikes(video.likes);
+      setDislikes(video.dislikes);
+    }
+  }, [video]);
+
 
   // Load video + channel in ONE API call
   const loadVideoAndChannel = async () => {
@@ -46,7 +56,26 @@ function VideoPage() {
     })();
   }, [id]);
 
-  if (loading || !video) return <Loader/>;
+  const handleLike = async () => {
+    try {
+      const res = await api.post(`/videos/${video.videoId}/like`);
+      setLikes(res.data.likes);
+    } catch (err) {
+      console.log("Like error", err);
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      const res = await api.post(`/videos/${video.videoId}/dislike`);
+      setDislikes(res.data.dislikes);
+    } catch (err) {
+      console.log("Dislike error", err);
+    }
+  };
+
+
+  if (loading || !video) return <Loader />;
 
   return (
     <div className="video-page">
@@ -73,17 +102,24 @@ function VideoPage() {
 
           <div className="actions">
             <div className="">
-            <button><img src="/like-inactive.png" alt="" width={"18px"}/> ({video.likes})</button>
-            <button><img src="/dislike-inactive.png" alt="" width={"18px"}/> ({video.dislikes})</button>
+              <button onClick={handleLike}>
+                <img src="/like-inactive.png" width="18px" /> ({likes})
+              </button>
+
+              <button onClick={handleDislike}>
+                <img src="/dislike-inactive.png" width="18px" /> ({dislikes})
+              </button>
+
             </div>
-            <button className=""><img src="/share.png" alt="" width={"18px"}/></button>
-            <button className=""><img src="/download.png" alt="" width={"18px"}/> Download</button>
+            <button className=""><img src="/share.png" alt="" width={"18px"} /></button>
+            <button className=""><img src="/download.png" alt="" width={"18px"} /> Download</button>
           </div>
         </div>
 
         {/* CHANNEL BOX */}
         <div className="channel-box">
-          <img
+          <Link to={`/channel/${channel.channelId}`}><div className="channel-sign">
+            <img
             src={channel.channelLogo || ""}
             alt="Channel Logo"
             className="channel-logo"
@@ -93,6 +129,8 @@ function VideoPage() {
             <h4 className="channel-name">{channel.channelName}</h4>
             <p className="subs">{channel.subscribers} subscribers</p>
           </div>
+          </div></Link>
+          
 
           <button className="subscribe-btn">Subscribe</button>
         </div>

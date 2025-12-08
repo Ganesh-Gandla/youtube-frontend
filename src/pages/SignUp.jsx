@@ -10,6 +10,7 @@ function SignUp() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    avatar:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -29,7 +30,7 @@ function SignUp() {
     e.preventDefault();
     setErrorMsg("");
 
-    const { firstName, lastName, email, password, confirmPassword } = formData;
+    const { firstName, lastName, avatar, email, password, confirmPassword } = formData;
 
     // Required fields validation
     if (!firstName.trim())
@@ -65,6 +66,7 @@ function SignUp() {
       const res = await axios.post("/auth/register", {
         firstName,
         lastName,
+        avatar,
         email,
         password,
       });
@@ -113,6 +115,13 @@ function SignUp() {
               onChange={handleChange}
             />
           </div>
+          <input
+              type="text"
+              placeholder="Profile avatar"
+              name="avatar"
+              value={formData.avatar}
+              onChange={handleChange}
+            />
 
           {/* Email */}
           <input

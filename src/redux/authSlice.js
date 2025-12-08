@@ -28,6 +28,10 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
     },
 
+    updateUser(state, action) {
+      state.user = { ...state.user, ...action.payload };
+    },
+
     // Load stored user on page refresh
     loadUserFromStorage: (state) => {
       const storedUser = localStorage.getItem("user");
@@ -42,5 +46,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout, loadUserFromStorage } = authSlice.actions;
+export const { loginSuccess, logout, updateUser, loadUserFromStorage } = authSlice.actions;
 export default authSlice.reducer;
