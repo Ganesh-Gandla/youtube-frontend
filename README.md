@@ -1,7 +1,3 @@
-Got it — you want **the entire README inside a single Markdown code block**, with **all text included inside the code block**, so you can copy–paste directly.
-
-Here is the complete README **fully inside a code block**, in **pure `.md` format**.
-
 ---
 
 ```markdown
@@ -12,17 +8,16 @@ This project includes authentication, video management, channels, comments, like
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🔐 Authentication
+### Authentication
 - Login & Register (JWT-based)
 - Auto-load user using token
 - Protected pages
 - Logout (token + redux state clear)
 
-### 🎥 Video System
+### Video System
 - Upload video
-- Auto thumbnail display
 - Watch page with:
   - Video player  
   - Likes / Dislikes  
@@ -32,19 +27,19 @@ This project includes authentication, video management, channels, comments, like
   - Suggested videos  
   - Channel summary box
 
-### 📡 Channels
+### Channels
 - Create channel
 - Edit channel
 - Channel page view
 - Show channel logo, banner, subs
 - Channel’s video list
 
-### 💬 Comments
+### Comments
 - Add comments
 - Fetch username from backend
 - Live update after posting
 
-### 🎛 UI / UX Features
+### UI / UX Features
 - Sidebar expand/collapse
 - Sidebar auto-hide on mobile
 - Navbar search functionality
@@ -55,7 +50,7 @@ This project includes authentication, video management, channels, comments, like
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technology |
 |---------|------------|
@@ -69,55 +64,11 @@ This project includes authentication, video management, channels, comments, like
 
 ---
 
-## 📁 Project Structure
-
-```
-
-frontend/
-│── public/
-│── src/
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Sidebar.jsx
-│   │   ├── VideoGrid.jsx
-│   │   ├── VideoItem.jsx
-│   │   ├── CommentSection.jsx
-│   │   ├── Loader.jsx
-│   │
-│   ├── pages/
-│   │   ├── HomePage.jsx
-│   │   ├── LoginPage.jsx
-│   │   ├── RegisterPage.jsx
-│   │   ├── VideoPage.jsx
-│   │   ├── ChannelPage.jsx
-│   │   ├── CreateChannelPage.jsx
-│   │   ├── EditChannelPage.jsx
-│   │   ├── AddVideoPage.jsx
-│   │
-│   ├── redux/
-│   │   ├── store.js
-│   │   └── authSlice.js
-│   │
-│   ├── utils/
-│   │   └── axios.js
-│   │
-│   ├── styles/
-│   │   └── *.css
-│   │
-│   ├── App.jsx
-│   └── index.js
-│
-└── package.json
-
-````
-
----
-
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the project
 ```bash
-git clone https://github.com/your-username/youtube-frontend.git
+git clone https://github.com/Ganesh-Gandla/youtube-frontend.git
 cd youtube-frontend
 ````
 
@@ -143,7 +94,7 @@ Runs at: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## 🔗 API Integration (Axios Setup)
+## API Integration (Axios Setup)
 
 `src/utils/axios.js`
 
@@ -165,7 +116,7 @@ export default api;
 
 ---
 
-## 🧭 Routes Overview
+## Routes Overview
 
 | Route               | Page              | Description      |
 | ------------------- | ----------------- | ---------------- |
@@ -180,23 +131,23 @@ export default api;
 
 ---
 
-## 🧪 Application Flow
+## Application Flow
 
-### ✔ Auth Flow
+### Auth Flow
 
 1. User logs in → backend returns token
 2. Token stored in `localStorage`
 3. Redux loads user using token
 4. Protected routes redirect if not logged in
 
-### ✔ Video Page Flow
+### Video Page Flow
 
 * GET `/videos/:id` → returns video + channel
 * GET `/videos` → suggested videos
 * Likes/dislikes update instantly
 * Comments update without reloading
 
-### ✔ Channel Flow
+### Channel Flow
 
 * Create once per user
 * Channel ID saved under user's `channels` array
@@ -205,7 +156,7 @@ export default api;
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 * Sidebar collapses on small screens
 * Sidebar closes on outside click
@@ -214,37 +165,12 @@ export default api;
 * Suggested videos shrink for smaller widths
 
 ---
+## Test Login credentials
 
-## 🛡 Protected Route Example
-
-```
-{user ? <AddVideoPage /> : <Navigate to="/login" />}
-```
-
----
-
-## 🏗 Build for Production
-
-```bash
-npm run build
-```
-
-Deploy `/build` folder on:
-
-* Netlify
-* Vercel
-* Render
-* Firebase Hosting
-* GitHub Pages
-
----
-
-## 🤝 How to Contribute
-
-```bash
-git checkout -b feature-branch
-git commit -m "Added new feature"
-git push origin feature-branch
-```
+* admin1@youtube.com - Test@admin1
+* admin2@youtube.com - Test@2222
+* test_email@email.com - Test@12345678
+* user1@youtube.com - Test@1111
+* user2@youtube.com - Test@2222
 
 ---
