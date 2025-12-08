@@ -15,7 +15,6 @@ function AddVideo() {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Education");
-  //   const [visibility, setVisibility] = useState("public");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -105,6 +104,7 @@ function AddVideo() {
           <option>Programming</option>
           <option>Gaming</option>
           <option>Blog</option>
+          <option>Movie</option>
         </select>
         <button className="upload-btn">Upload Video</button>
       </form>

@@ -1,5 +1,3 @@
-// src/components/VideoGrid.jsx
-import React from "react";
 import VideoItem from "./VideoItem";
 import "../styles/VideoGrid.css";
 

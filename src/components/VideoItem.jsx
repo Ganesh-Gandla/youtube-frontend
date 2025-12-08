@@ -1,5 +1,3 @@
-// src/components/VideoItem.jsx
-import React from "react";
 import "../styles/VideoItem.css";
 import { useNavigate } from "react-router-dom";
 

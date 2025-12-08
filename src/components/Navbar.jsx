@@ -6,17 +6,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
 
 function Navbar({ toggleSidebar }) {
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const userMenuRef = useRef(null);
-  const userBtnRef = useRef(null);
+
+  // ---------------- STATE ----------------
+  const [showUserMenu, setShowUserMenu] = useState(false);  // Controls user dropdown menu
+  const userMenuRef = useRef(null);                         // Reference to dropdown box
+  const userBtnRef = useRef(null);                          // Reference to user avatar button
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Get logged-in user from Redux store
   const { user } = useSelector((state) => state.auth);
 
   const toggleUserMenu = () => setShowUserMenu((prev) => !prev);
 
+  // ---------------- CLOSE MENU ON OUTSIDE CLICK & ESC ----------------
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -43,6 +47,7 @@ function Navbar({ toggleSidebar }) {
     };
   }, [showUserMenu]);
 
+  // ---------------- LOGOUT ----------------
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("token");
@@ -50,33 +55,37 @@ function Navbar({ toggleSidebar }) {
     navigate("/login");
   };
 
+  // ---------------- YOUR CHANNEL ----------------
   const handleYourChannel = () => {
-  setShowUserMenu(false);
+    setShowUserMenu(false);
 
-  if (!user?.channels || user.channels.length === 0) {
-    alert("You don't have a channel yet. Please create one first.");
-    navigate("/channel");  // open create channel page
-    return;
-  }
+    // No channel? Redirect user to create one
+    if (!user?.channels || user.channels.length === 0) {
+      alert("You don't have a channel yet. Please create one first.");
+      navigate("/channel");
+      return;
+    }
 
-  // If user has a channel
-  const channelId = user.channels[0]; // assuming 1 channel
-  navigate(`/channel/${channelId}`);
-};
+    // Redirect to user's channel page
+    const channelId = user.channels[0];
+    navigate(`/channel/${channelId}`);
+  };
 
-const [searchText, setSearchText] = useState("")
+  // ---------------- SEARCH ----------------
+  const [searchText, setSearchText] = useState("");
 
-const handleSearch = () => {
-  if (!searchText.trim()) return;
-  navigate(`/?q=${searchText}`);
-};
-
+  const handleSearch = () => {
+    if (!searchText.trim()) return;
+    navigate(`/?q=${searchText}`);
+  };
 
   return (
     <nav className="navbar">
-      {/* Left */}
+
+      {/* ---------------- LEFT SECTION ---------------- */}
       <div className="navbar-left">
-        {/* <-- added onClick that calls toggleSidebar prop --> */}
+
+        {/* Sidebar toggle button */}
         <button
           className="hamburger"
           aria-label="Toggle sidebar"
@@ -85,62 +94,85 @@ const handleSearch = () => {
           <FaBars />
         </button>
 
+        {/* Logo */}
         <Link to="/" className="logo">
           <img src="/youtube.png" alt="YouTube" />
           <p className="logo-text">YouTube</p>
         </Link>
       </div>
 
-      {/* Center */}
+      {/* ---------------- CENTER (Search Bar) ---------------- */}
       <div className="search-container">
-        <input type="text" placeholder="Search" className="search-input" onChange={e => setSearchText(e.target.value)}/>
-        <button className="search-btn" onClick={handleSearch}><FaSearch /></button>
-        <button className="voice-btn"><FaMicrophone /></button>
+        <input
+          type="text"
+          placeholder="Search"
+          className="search-input"
+          onChange={e => setSearchText(e.target.value)}
+        />
+        <button className="search-btn" onClick={handleSearch}>
+          <FaSearch />
+        </button>
+        <button className="voice-btn">
+          <FaMicrophone />
+        </button>
       </div>
 
-      {/* Right */}
+      {/* ---------------- RIGHT SECTION ---------------- */}
       <div className="navbar-right">
-        {/* {user && <p className="nav-username">{user.username}</p>} */}
 
+        {/* If user NOT logged in — show login button */}
         {!user && (
           <Link to="/login">
             <button className="login-btn">Login</button>
           </Link>
         )}
 
+        {/* If user logged in — show user features */}
         {user && (
           <>
-          {/* on click need to redirect to add new video page */}
-          {user.channels.length !== 0 && (<Link to="/addvideo"><button className="btn"> + <span className="btn-text">Add</span></button></Link>)}
+
+            {/* Add Video Button (only if user has a channel) */}
+            {user.channels.length !== 0 && (
+              <Link to="/addvideo">
+                <button className="btn"> + <span className="btn-text">Add</span></button>
+              </Link>
+            )}
+
+            {/* Notification Icon */}
             <div className="notification">
               <img src="/bell.png" alt="Notifications" />
             </div>
 
+            {/* User Avatar + Dropdown Menu */}
             <div className="user-menu-wrapper">
-              <button className="user-icon-btn" ref={userBtnRef} onClick={toggleUserMenu}>
+              <button
+                className="user-icon-btn"
+                ref={userBtnRef}
+                onClick={toggleUserMenu}
+              >
                 {user.avatar ? (
                   <img src={user.avatar} alt="User" className="nav-avatar" />
                 ) : (
-                  <FaUserCircle className="nav-avatar"/>
+                  <FaUserCircle className="nav-avatar" />
                 )}
               </button>
 
+              {/* Dropdown Menu */}
               {showUserMenu && (
                 <div className="user-menu" ref={userMenuRef}>
-                  <p className="user-name">{user.username || user.email}</p>
+                  
+                  <p className="user-name">
+                    {user.username || user.email}
+                  </p>
                   <div className="divider" />
 
                   <Link to="/channel">
                     <p className="user-menu-item">Create Channel</p>
                   </Link>
 
-                  <p
-                    className="user-menu-item"
-                    onClick={handleYourChannel}
-                  >
+                  <p className="user-menu-item" onClick={handleYourChannel}>
                     Your Channel
                   </p>
-
 
                   <p className="user-menu-item">Settings</p>
 
@@ -149,12 +181,16 @@ const handleSearch = () => {
                   <p className="user-menu-item logout-btn" onClick={handleLogout}>
                     Sign out
                   </p>
+
                 </div>
               )}
+
             </div>
+
           </>
         )}
       </div>
+
     </nav>
   );
 }

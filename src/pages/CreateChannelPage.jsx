@@ -31,10 +31,10 @@ function CreateChannelPage() {
 
             const channelId = res.data.channel.channelId;
 
-            // ▶ Update Redux user
+            // Update Redux user
             dispatch(updateUser(res.data.user));
 
-            // ▶ Persist new user in localStorage
+            // Persist new user in localStorage
             const storedAuth = JSON.parse(localStorage.getItem("auth"));
             localStorage.setItem("auth", JSON.stringify({
                 ...storedAuth,

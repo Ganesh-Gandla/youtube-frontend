@@ -11,7 +11,6 @@ function CommentSection({ videoId }) {
 
   // Load logged-in user info
   const { user } = useSelector((state) => state.auth);
-  console.log(user)
 
 
   // Load comments
@@ -19,7 +18,6 @@ function CommentSection({ videoId }) {
     try {
       const res = await api.get(`/comments/${videoId}`);
       setComments(res.data);
-      console.log(res.data);
     } catch (err) {
       console.error("Error loading comments", err);
     }

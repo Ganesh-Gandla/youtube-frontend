@@ -6,12 +6,9 @@ import { Outlet } from "react-router-dom";
 import "../styles/Layout.css";
 
 function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-
-
-
 
   return (
     <div className="app-container">

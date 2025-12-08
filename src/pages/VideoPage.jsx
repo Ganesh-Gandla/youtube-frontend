@@ -101,7 +101,7 @@ function VideoPage() {
           </p>
 
           <div className="actions">
-            <div className="">
+            <div className="likes">
               <button onClick={handleLike}>
                 <img src="/like-inactive.png" width="18px" /> ({likes})
               </button>
@@ -112,7 +112,7 @@ function VideoPage() {
 
             </div>
             <button className=""><img src="/share.png" alt="" width={"18px"} /></button>
-            <button className=""><img src="/download.png" alt="" width={"18px"} /> Download</button>
+            <button className=""><img src="/download.png" alt="" width={"18px"} /> <span className="download">Download</span></button>
           </div>
         </div>
 
