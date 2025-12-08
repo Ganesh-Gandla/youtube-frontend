@@ -10,12 +10,18 @@ function Layout() {
 
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
+
+
+
   return (
     <div className="app-container">
       <Navbar toggleSidebar={toggleSidebar} />
+      {sidebarOpen && window.innerWidth <= 900 && (
+        <div className="overlay" onClick={() => setSidebarOpen(false)} />
+      )}
 
       <div className="main-content">
-        <Sidebar sidebarOpen={sidebarOpen} />
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main className={`content-area ${sidebarOpen ? "open" : "closed"}`}>
           <Outlet />

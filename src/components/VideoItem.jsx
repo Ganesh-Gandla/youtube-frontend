@@ -52,7 +52,7 @@ function VideoItem({ video, isOwner = false, onEdit, onDelete }) {
         {isOwner && (
           <div className="owner-actions">
             <button className="edit-btn" onClick={handleEdit}>Edit</button>
-            <button className="delete-btn" onClick={handleDelete}>Delete</button>
+            <button className="del-btn" onClick={handleDelete}>Delete</button>
           </div>
         )}
       </div>

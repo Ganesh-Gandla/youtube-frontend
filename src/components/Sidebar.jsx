@@ -1,14 +1,35 @@
 import { FaHome, FaList, FaFire, FaUserCircle, FaDownload } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
+import { useEffect, useRef } from "react";
 
-function Sidebar({ sidebarOpen = true }) {
+function Sidebar({ sidebarOpen, setSidebarOpen }) {
+
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    if (window.innerWidth > 900) return; // Only enable on mobile
+
+    const handleClickOutside = (e) => {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [sidebarOpen]);
+
   return (
-    <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
-      
-      {sidebarOpen ? (
-        <ul className="sidebar-list">
+    <aside ref={sidebarRef} className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
 
+      {sidebarOpen ? (
+        <ul className="sidebar-list" onClick={()=>setSidebarOpen(false)}>
           <li><Link to="/"><FaHome /> <span>Home</span></Link></li>
           <li><FaFire /> <span>Shorts</span></li>
           <li><FaList /> <span>Subscriptions</span></li>
@@ -52,7 +73,6 @@ function Sidebar({ sidebarOpen = true }) {
           <li><span>Help</span></li>
           <li><span>Send feedback</span></li>
           <li><span>Trending</span></li>
-
         </ul>
       ) : (
         <ul className="sidebar-list small">

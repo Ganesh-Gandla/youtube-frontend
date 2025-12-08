@@ -87,9 +87,8 @@
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 900px) {
   /* Overlay mode below 900px */
-  .sidebar {
-    position: absolute;
-    z-index: 200;
-    top: 60px;
+  
+  .sidebar.closed{
+    display: none;
   }
 }

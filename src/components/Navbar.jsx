@@ -87,7 +87,7 @@ const handleSearch = () => {
 
         <Link to="/" className="logo">
           <img src="/youtube.png" alt="YouTube" />
-          <p>YouTube</p>
+          <p className="logo-text">YouTube</p>
         </Link>
       </div>
 
@@ -111,7 +111,7 @@ const handleSearch = () => {
         {user && (
           <>
           {/* on click need to redirect to add new video page */}
-          {user.channels.length !== 0 && (<Link to="/addvideo"><button className="btn"> add +</button></Link>)}
+          {user.channels.length !== 0 && (<Link to="/addvideo"><button className="btn"> + <span className="btn-text">Add</span></button></Link>)}
             <div className="notification">
               <img src="/bell.png" alt="Notifications" />
             </div>
@@ -121,7 +121,7 @@ const handleSearch = () => {
                 {user.avatar ? (
                   <img src={user.avatar} alt="User" className="nav-avatar" />
                 ) : (
-                  <FaUserCircle />
+                  <FaUserCircle className="nav-avatar"/>
                 )}
               </button>
 

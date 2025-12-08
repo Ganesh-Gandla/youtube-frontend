@@ -80,3 +80,19 @@
   font-size: 13px;
   color: #606060;
 }
+
+.owner-actions{
+  display: flex;
+  gap: 6px;
+}
+
+.edit-btn, .del-btn{
+  background-color: #0f0f0f;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}

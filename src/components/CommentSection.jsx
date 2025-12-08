@@ -11,6 +11,7 @@ function CommentSection({ videoId }) {
 
   // Load logged-in user info
   const { user } = useSelector((state) => state.auth);
+  console.log(user)
 
 
   // Load comments
@@ -50,7 +51,7 @@ function CommentSection({ videoId }) {
       <h3>Comments</h3>
 
       {/* Add Comment */}
-      <div className="add-comment">
+      {user?(<div className="add-comment">
         {user.avatar?(<img
           src={user.avatar}
           alt="User"
@@ -66,7 +67,8 @@ function CommentSection({ videoId }) {
         />
 
         <button onClick={addComment}>Post</button>
-      </div>
+      </div>):(null)}
+      
 
       {/* Render Comments */}
       {comments.map((c) => (

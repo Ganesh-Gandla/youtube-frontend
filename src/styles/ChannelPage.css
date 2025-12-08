@@ -50,7 +50,7 @@
 }
 
 /* SUBSCRIBE BUTTON */
-.subscribe-btn {
+.subscribe-btn, .edit-channel-btn{
   background: #cc0000;
   border: none;
   color: #fff;
@@ -59,6 +59,11 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+}
+
+.edit-channel-btn {
+  background: #000000;
+  
 }
 
 .subscribe-btn:hover {
