@@ -1,4 +1,6 @@
 // src/pages/SignUp.jsx
+
+// Import required dependencies and hooks
 import { useState } from "react";
 import "../styles/SignUp.css";
 import axios from "../utils/axios.js";
@@ -7,18 +9,23 @@ import { useNavigate } from "react-router-dom";
 function SignUp() {
   const navigate = useNavigate();
 
+  // State to store all input values
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    avatar:"",
+    avatar: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
+  // Loading button animation
   const [loading, setLoading] = useState(false);
+
+  // Display error message
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Update form data on each input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -26,13 +33,15 @@ function SignUp() {
     });
   };
 
+  // Submit registration form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
 
-    const { firstName, lastName, avatar, email, password, confirmPassword } = formData;
+    const { firstName, lastName, avatar, email, password, confirmPassword } =
+      formData;
 
-    // Required fields validation
+    // Simple validation for required fields
     if (!firstName.trim())
       return setErrorMsg("First name is required.");
 
@@ -45,10 +54,9 @@ function SignUp() {
     if (!emailRegex.test(email))
       return setErrorMsg("Enter a valid email address.");
 
-    // Password required + strength
+    // Password strength rule
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-
 
     if (!passwordRegex.test(password)) {
       return setErrorMsg(
@@ -56,13 +64,14 @@ function SignUp() {
       );
     }
 
-    // Confirm password
+    // Check password match
     if (password !== confirmPassword)
       return setErrorMsg("Passwords do not match!");
 
     setLoading(true);
 
     try {
+      // Send data to backend API
       const res = await axios.post("/auth/register", {
         firstName,
         lastName,
@@ -71,9 +80,12 @@ function SignUp() {
         password,
       });
 
+      // Success message
       alert("Account created successfully!");
       navigate("/login");
+
     } catch (error) {
+      // Show backend error or fallback message
       setErrorMsg(
         error.response?.data?.message ||
         "Registration failed. Try again."
@@ -86,19 +98,25 @@ function SignUp() {
   return (
     <div className="signup-page">
       <div className="signup-box">
+
+        {/* Google style logo */}
         <img
           className="google-logo"
           src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
           alt="Google"
         />
 
+        {/* Heading */}
         <h1 className="signup-title">Create your Google Account</h1>
         <p className="signup-sub">Enter your details</p>
 
+        {/* Error message block */}
         {errorMsg && <p className="error-msg">{errorMsg}</p>}
 
+        {/* Registration Form */}
         <form className="signup-form" onSubmit={handleSubmit}>
-          {/* First / Last Name */}
+
+          {/* First name & Last name */}
           <div className="row">
             <input
               type="text"
@@ -107,6 +125,7 @@ function SignUp() {
               value={formData.firstName}
               onChange={handleChange}
             />
+
             <input
               type="text"
               placeholder="Last name"
@@ -115,25 +134,26 @@ function SignUp() {
               onChange={handleChange}
             />
           </div>
+
+          {/* Avatar URL */}
           <input
-              type="text"
-              placeholder="Profile avatar"
-              name="avatar"
-              value={formData.avatar}
-              onChange={handleChange}
-            />
+            type="text"
+            placeholder="Profile avatar"
+            name="avatar"
+            value={formData.avatar}
+            onChange={handleChange}
+          />
 
           {/* Email */}
           <input
             type="email"
             placeholder="Email"
-            // className="full"
             name="email"
             value={formData.email}
             onChange={handleChange}
           />
 
-          {/* Password */}
+          {/* Password + Confirm Password */}
           <div className="row">
             <input
               type="password"
@@ -142,6 +162,7 @@ function SignUp() {
               value={formData.password}
               onChange={handleChange}
             />
+
             <input
               type="password"
               placeholder="Confirm password"
@@ -151,10 +172,12 @@ function SignUp() {
             />
           </div>
 
+          {/* Password instructions */}
           <p className="info">
             Use 8 or more characters with a mix of letters, numbers & symbols.
           </p>
 
+          {/* Submit Button */}
           <div className="action">
             <button className="btn-create" disabled={loading}>
               {loading ? "Creating..." : "Create"}

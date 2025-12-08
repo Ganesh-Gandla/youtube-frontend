@@ -1,5 +1,4 @@
-
-/* ---------------- SIDEBAR BASE ---------------- */
+/* ---------------- SIDEBAR WRAPPER ---------------- */
 .sidebar {
   background: #fff;
   height: calc(100vh - 60px);
@@ -9,20 +8,12 @@
   border-right: 1px solid #e5e5e5;
   overflow-y: auto;
   padding-top: 10px;
-
-  /* Smooth expand/collapse */
   transition: width 0.3s ease;
 }
 
-/* Open sidebar width */
-.sidebar.open {
-  width: 240px;
-}
-
-/* Closed sidebar width */
-.sidebar.closed {
-  width: 70px;
-}
+/* WIDTHS */
+.sidebar.open { width: 240px; }
+.sidebar.closed { width: 70px; }
 
 /* ---------------- SIDEBAR LIST ---------------- */
 .sidebar-list {
@@ -33,62 +24,77 @@
 
 .sidebar-list li {
   padding: 10px 16px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 14px;
+  cursor: pointer;
   font-size: 15px;
-  white-space: nowrap;
   transition: background 0.2s ease;
+  white-space: nowrap;
 }
 
 .sidebar-list li:hover {
   background: #f5f5f5;
 }
 
-/* ---------------- LINKS ---------------- */
-.sidebar-list a {
+/* LINKS — Make full row clickable */
+.sidebar-list li a {
   display: flex;
   align-items: center;
   gap: 14px;
+  width: 100%;
   text-decoration: none;
-  color: #000;
+  color: inherit;
 }
 
-/* ---------------- HR LINE ---------------- */
+/* SECTION TITLES */
+.section-title {
+  font-weight: bold;
+  opacity: 0.8;
+  cursor: default;
+}
+
+/* ---------------- HR ---------------- */
 .sidebar hr {
   border: none;
   border-bottom: 1px solid #ddd;
   margin: 10px 0;
 }
 
-/* ---------------- CLOSED SIDEBAR STYLES ---------------- */
+/* ---------------- CLOSED SIDEBAR ---------------- */
 .sidebar.closed .sidebar-list li span {
   display: none;
 }
 
-/* Keep icons centered when closed */
+/* Perfect centering for collapsed mode */
 .sidebar.closed .sidebar-list li {
   justify-content: center;
-  padding: 12px 0;
+  padding: 0;
+  height: 55px;                  /* uniform clickable height */
+  display: flex;
+  align-items: center;
 }
 
-/* Hide long text links */
-.sidebar.closed a span {
-  display: none;
+.sidebar.closed .sidebar-list li a {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-/* Make hr shorter in closed state */
+
 .sidebar.closed hr {
-  width: 60%;
-  margin: 12px auto;
+  width: 50%;
+  margin: 10px auto;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+/* ---------------- SMALL SCREEN BEHAVIOR ---------------- */
 @media (max-width: 900px) {
-  /* Overlay mode below 900px */
-  
-  .sidebar.closed{
+  .sidebar.closed {
     display: none;
+  }
+
+  .sidebar {
+    z-index: 100;
+    position: absolute;
   }
 }

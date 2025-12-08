@@ -10,6 +10,7 @@ function Filterbar() {
     "Blog",
     "Gaming",
     "Music",
+    "Movie",
     "Programming",
     "CSS",
     "JavaScript",

@@ -4,39 +4,36 @@ import "../styles/Sidebar.css";
 import { useEffect, useRef } from "react";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
-
   const sidebarRef = useRef(null);
 
   useEffect(() => {
-    if (window.innerWidth > 900) return; // Only enable on mobile
+    if (window.innerWidth > 900) return;
 
     const handleClickOutside = (e) => {
-      if (
-        sidebarOpen &&
-        sidebarRef.current &&
-        !sidebarRef.current.contains(e.target)
-      ) {
+      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
         setSidebarOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [sidebarOpen]);
 
   return (
     <aside ref={sidebarRef} className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
-
       {sidebarOpen ? (
-        <ul className="sidebar-list" onClick={()=>setSidebarOpen(false)}>
-          <li><Link to="/"><FaHome /> <span>Home</span></Link></li>
+        <ul className="sidebar-list" onClick={() => setSidebarOpen(false)}>
+
+          <li>
+            <Link to="/"><FaHome /> <span>Home</span></Link>
+          </li>
+
           <li><FaFire /> <span>Shorts</span></li>
           <li><FaList /> <span>Subscriptions</span></li>
 
           <hr />
 
-          <li><span className="section-title">You</span></li>
+          <li className="section-title">You</li>
           <li><span>History</span></li>
           <li><span>Playlist</span></li>
           <li><span>Your videos</span></li>
@@ -73,6 +70,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <li><span>Help</span></li>
           <li><span>Send feedback</span></li>
           <li><span>Trending</span></li>
+
         </ul>
       ) : (
         <ul className="sidebar-list small">
@@ -83,7 +81,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <li><FaDownload /></li>
         </ul>
       )}
-
     </aside>
   );
 }
