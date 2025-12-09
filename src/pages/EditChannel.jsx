@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../utils/axios";
 import "../styles/CreateChannelPage.css";
+import Loader from "../components/Loader"
 
 function EditChannel() {
   // Get channelId from URL
@@ -64,7 +65,7 @@ function EditChannel() {
   };
 
   // Show loader while fetching data
-  if (loading) return <p className="loader">Loading...</p>;
+  if (loading) return <Loader/>;
 
   return (
     <div className="create-channel-page">

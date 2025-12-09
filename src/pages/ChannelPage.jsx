@@ -1,10 +1,12 @@
 // src/pages/ChannelPage.jsx
+import {FaUserCircle} from 'react-icons/fa'
 import VideoGrid from "../components/VideoGrid";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../utils/axios";
 import "../styles/ChannelPage.css"
 import { useSelector } from "react-redux";
+import Loader from "../components/Loader"
 
 function ChannelPage() {
   const { channelId } = useParams();
@@ -51,18 +53,18 @@ function ChannelPage() {
     }
   };
 
-  if (loading) return <p className="loader">Loading channel...</p>;
+  if (loading) return<Loader/>;
 
   return (
     <div className="channel-page">
       {/* Banner */}
       <div className="channel-banner">
-        <img src={channel.channelBanner || "/default-banner.jpg"} alt="Channel Banner" />
+        {channel.channelBanner?(<img src={channel.channelBanner} alt="Channel Banner" />):(null)}
       </div>
 
       {/* Header */}
       <div className="channel-header">
-        <img className="channel-avatar" src={channel.channelLogo || "/default-avatar.png"} alt={channel.channelName} />
+        {channel.channelLogo?(<img className="channel-avatar" src={channel.channelLogo} alt={channel.channelName} />):(<FaUserCircle className="channel-avatar"/>)}
 
         <div className="channel-info">
           <h2 className="channel-title">{channel.channelName}</h2>

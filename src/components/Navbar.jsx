@@ -5,22 +5,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
 
-function Navbar({ toggleSidebar }) {
+function Navbar({ toggleSidebar, hamburgerRef }) {
 
   // ---------------- STATE ----------------
-  const [showUserMenu, setShowUserMenu] = useState(false);  // Controls user dropdown menu
-  const userMenuRef = useRef(null);                         // Reference to dropdown box
-  const userBtnRef = useRef(null);                          // Reference to user avatar button
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef(null);
+  const userBtnRef = useRef(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Get logged-in user from Redux store
   const { user } = useSelector((state) => state.auth);
 
   const toggleUserMenu = () => setShowUserMenu((prev) => !prev);
 
-  // ---------------- CLOSE MENU ON OUTSIDE CLICK & ESC ----------------
+  // ---------------- CLOSE USER MENU ON OUTSIDE CLICK & ESC ----------------
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -55,18 +54,16 @@ function Navbar({ toggleSidebar }) {
     navigate("/login");
   };
 
-  // ---------------- YOUR CHANNEL ----------------
+  // ---------------- OPEN YOUR CHANNEL ----------------
   const handleYourChannel = () => {
     setShowUserMenu(false);
 
-    // No channel? Redirect user to create one
     if (!user?.channels || user.channels.length === 0) {
       alert("You don't have a channel yet. Please create one first.");
       navigate("/channel");
       return;
     }
 
-    // Redirect to user's channel page
     const channelId = user.channels[0];
     navigate(`/channel/${channelId}`);
   };
@@ -85,29 +82,29 @@ function Navbar({ toggleSidebar }) {
       {/* ---------------- LEFT SECTION ---------------- */}
       <div className="navbar-left">
 
-        {/* Sidebar toggle button */}
+        {/* Sidebar Toggle (with ref!) */}
         <button
           className="hamburger"
           aria-label="Toggle sidebar"
           onClick={toggleSidebar}
+          ref={hamburgerRef}
         >
           <FaBars />
         </button>
 
-        {/* Logo */}
         <Link to="/" className="logo">
           <img src="/youtube.png" alt="YouTube" />
           <p className="logo-text">YouTube</p>
         </Link>
       </div>
 
-      {/* ---------------- CENTER (Search Bar) ---------------- */}
+      {/* ---------------- SEARCH BAR ---------------- */}
       <div className="search-container">
         <input
           type="text"
           placeholder="Search"
           className="search-input"
-          onChange={e => setSearchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value)}
         />
         <button className="search-btn" onClick={handleSearch}>
           <FaSearch />
@@ -120,30 +117,27 @@ function Navbar({ toggleSidebar }) {
       {/* ---------------- RIGHT SECTION ---------------- */}
       <div className="navbar-right">
 
-        {/* If user NOT logged in — show login button */}
         {!user && (
           <Link to="/login">
             <button className="login-btn">Login</button>
           </Link>
         )}
 
-        {/* If user logged in — show user features */}
         {user && (
           <>
-
-            {/* Add Video Button (only if user has a channel) */}
+            {/* Add Video Button */}
             {user.channels.length !== 0 && (
               <Link to="/addvideo">
                 <button className="btn"> + <span className="btn-text">Add</span></button>
               </Link>
             )}
 
-            {/* Notification Icon */}
+            {/* Notifications */}
             <div className="notification">
               <img src="/bell.png" alt="Notifications" />
             </div>
 
-            {/* User Avatar + Dropdown Menu */}
+            {/* User Menu */}
             <div className="user-menu-wrapper">
               <button
                 className="user-icon-btn"
@@ -157,13 +151,10 @@ function Navbar({ toggleSidebar }) {
                 )}
               </button>
 
-              {/* Dropdown Menu */}
               {showUserMenu && (
                 <div className="user-menu" ref={userMenuRef}>
-                  
-                  <p className="user-name">
-                    {user.username || user.email}
-                  </p>
+                  <p className="user-name">{user.username || user.email}</p>
+
                   <div className="divider" />
 
                   <Link to="/channel">
@@ -181,16 +172,13 @@ function Navbar({ toggleSidebar }) {
                   <p className="user-menu-item logout-btn" onClick={handleLogout}>
                     Sign out
                   </p>
-
                 </div>
               )}
-
             </div>
-
           </>
         )}
-      </div>
 
+      </div>
     </nav>
   );
 }

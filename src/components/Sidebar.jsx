@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
 import { useEffect, useRef } from "react";
 
-function Sidebar({ sidebarOpen, setSidebarOpen }) {
+function Sidebar({ sidebarOpen, setSidebarOpen, hamburgerRef }) {
   const sidebarRef = useRef(null);
 
   useEffect(() => {
     if (window.innerWidth > 900) return;
 
     const handleClickOutside = (e) => {
-      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target) &&
+        !(hamburgerRef.current && hamburgerRef.current.contains(e.target))
+      ) {
+        // Close sidebar only if click is OUTSIDE and NOT on hamburger
         setSidebarOpen(false);
       }
     };
@@ -23,9 +29,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <aside ref={sidebarRef} className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
       {sidebarOpen ? (
         <ul className="sidebar-list" onClick={() => setSidebarOpen(false)}>
-
           <li>
-            <Link to="/"><FaHome /> <span>Home</span></Link>
+            <Link to="/">
+              <FaHome /> <span>Home</span>
+            </Link>
           </li>
 
           <li><FaFire /> <span>Shorts</span></li>
@@ -70,7 +77,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <li><span>Help</span></li>
           <li><span>Send feedback</span></li>
           <li><span>Trending</span></li>
-
         </ul>
       ) : (
         <ul className="sidebar-list small">

@@ -17,3 +17,7 @@
     width: max-content;
 
 }
+
+.tags-container li:hover{
+    background-color: rgb(202, 202, 202);
+}

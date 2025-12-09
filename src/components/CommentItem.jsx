@@ -130,7 +130,7 @@ function CommentItem({ comment, currentUserId, onDelete, onUpdate }) {
           <div className="delete-popup">
             <p>Delete this comment?</p>
             <div className="popup-actions">
-              <button onClick={() => setConfirmDelete(false)}>Cancel</button>
+              <button onClick={() => setConfirmDelete(false)} className="cancel-btn">Cancel</button>
               <button className="delete-btn" onClick={handleDelete}>
                 Delete
               </button>

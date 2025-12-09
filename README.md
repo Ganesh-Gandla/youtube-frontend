@@ -1,5 +1,3 @@
----
-
 ```markdown
 # 📺 YouTube Clone – Frontend (React.js)
 

@@ -6,6 +6,18 @@
   padding: 10px;
 }
 
+.no-videos{
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 18Px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fafafa;
+  margin-top: 20px;
+}
+
 @media (max-width: 900px) {
   .video-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../utils/axios";
 import "../styles/AddVideo.css";
+import Loader from "../components/Loader"
 
 function EditVideo() {
   // Extract videoId from URL
@@ -67,7 +68,7 @@ function EditVideo() {
   };
 
   // Loading state
-  if (loading) return <p className="loader">Loading...</p>;
+  if (loading) return <Loader/>;
 
   return (
     <div className="add-video-page">
